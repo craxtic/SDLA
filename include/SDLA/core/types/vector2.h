@@ -1,6 +1,6 @@
 #pragma once
 
-#include <SDLA/core/vector.h>
+#include <SDLA/core/types/vector.h>
 
 namespace SDLA {
 

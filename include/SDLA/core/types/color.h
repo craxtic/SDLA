@@ -2,10 +2,11 @@
 
 
 #include "SDLA/config.h"
-#include <SDLA/core/utils.h>
-#include <SDLA/core/ctype.h>
+#include <SDLA/utils/utils.h>
+#include <SDLA/core/types/ctype.h>
 
 #include <ostream>
+#include <include/core/SkColor.h>
 
 namespace SDLA {
 
@@ -30,7 +31,11 @@ struct Color {
   [[nodiscard]] constexpr u8 &operator[](int i) { return data[i]; }
   [[nodiscard]] constexpr const u8 &operator[](int i) const { return data[i]; }
 
-  // [[nodicard]] constexpr 
+
+  // skia mapping
+  [[nodiscard]] constexpr operator SkColor() const {
+    return SkColorSetARGB(a, r, g, b);
+  }
 
 
   static const Color Black;       // Black predefined color

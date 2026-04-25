@@ -1,9 +1,23 @@
+#include "SDLA/renderer/window.h"
+#include <SDLA/mobjects/cloud.h>
 
-static class _init {
+namespace SDLA {
+
+  
+  MobjectCloud cloud;
+  PreviewRenderer preview_renderer;
+  
+
+  static class _init {
+  
+
 
   public:
     _init(){
 
     }
 
-} init;
+  } init;
+
+
+}

@@ -5,8 +5,8 @@
 #include <ostream>
 
 #include <SDLA/config.h>
-#include <SDLA/core/ctype.h>
-#include <SDLA/core/utils.h>
+#include <SDLA/core/types/ctype.h>
+#include <SDLA/utils/utils.h>
 
 namespace SDLA {
 
