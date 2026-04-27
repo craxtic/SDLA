@@ -4,7 +4,6 @@
 #include <SDLA/core/types/vector2.h>
 #include <SDLA/core/types/color.h>
 #include <SDLA/renderer/renderer_interface.h>
-#include <SDLA/renderer/window.h>
 #include <SDLA/mobjects/mobject.h>
 #include <SDLA/animations/animation.h>
 
@@ -21,7 +20,7 @@ enum class RenderMode {
 class SDLA_API Scene final {
   
   IRenderer *renderer;
-  std::vector<Mobject> mobjects; /// z_index of 0  
+  std::vector<Mobject*> mobjects; /// z_index of 0  
   u8 frame_rate;
   Color bg_color;
   RenderMode render_mode;
@@ -39,11 +38,10 @@ public:
   inline void set_bg_color(const Color &color){
     this->bg_color = color;
   }
-  s
 
-
+ 
   /// add an mobject to the mobject list
-  inline void push(const Mobject &mobject){
+  inline void push(Mobject *mobject){
     mobjects.emplace_back(mobject);
   }
 
@@ -52,15 +50,20 @@ public:
     /// 
   }
 
+  void set_render_mode(RenderMode render_mode); 
+
   /// render the current frame using the mobject list
   void render_frame() const;
 
   /// add an mobject to the scene and render
-  void add(const Mobject &mobject);
+  void add(Mobject &mobject);
+  void add(const Mobject &&mobject);
 
   /// play an animation
   void play(const Animation &animatoin);
 
+
+  void idle() const;
 };
   
 }

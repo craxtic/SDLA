@@ -56,7 +56,7 @@ public:
 
 
 
-extern MobjectCloud cloud;
+extern MobjectCloud *const cloud;
 
 
 }

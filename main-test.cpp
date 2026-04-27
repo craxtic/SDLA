@@ -1,16 +1,15 @@
-#include "SDLA/renderer/window.h"
-#include <iostream>
-
 #include <SDLA/SDLA.h>
+#include <SDLA/mobjects/rect.h>
+
+using namespace SDLA;
 
 int main(){
+  
+  Scene scene(60, Color::Black);
 
-  // SDLA::PreviewRenderer pr;
-  SDLA::Scene scene(60, SDLA::Color::Black);
+  Rect rect({10, 10}, {20, 20});
+  scene.add(rect);
 
-  scene.render_frame();
-
-  SDLA::PreviewRenderer::idle();
-
+  scene.idle();
   return 0;
 }

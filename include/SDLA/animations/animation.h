@@ -2,6 +2,7 @@
 
 
 #include "SDLA/mobjects/mobject.h"
+#include <variant>
 
 namespace SDLA {
 

@@ -55,6 +55,11 @@ template <typename T> struct vec<3, T> {
     return  vec<3, T>(x/norm, y/norm, z/norm);
   }
 
+
+  /// convert to SkPoint
+  
+
+
 };
 
 

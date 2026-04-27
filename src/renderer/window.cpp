@@ -103,7 +103,7 @@ sk_sp<SkSurface>  PreviewRenderer::_create_sk_surface(int w, int h){
 }
 
 
-void PreviewRenderer::idle() {
+void PreviewRenderer::idle() const {
   bool running = true;
   while(running){
     while(auto ev = SDL::PollEvent()){

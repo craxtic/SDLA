@@ -26,7 +26,7 @@ public:
   void present() const override;
 
   /// keep window alive and wait for window close event
-  static void idle();
+  void idle() const override;
 
   /// test open window (should remove later)
   void test_open_window(){
@@ -40,5 +40,7 @@ public:
 private:
   sk_sp<SkSurface> _create_sk_surface(int w, int h);
 };
+
+extern PreviewRenderer * const preview_renderer;
 
 }
