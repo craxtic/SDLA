@@ -1,8 +1,4 @@
 
-#include "SDLA/renderer/window.h"
-#include <SDLA/renderer/window.h>
-#include "SDLA/core/types/color.h"
-#include <SDLA/utils/errors.h>
 
 
 #include <SDL3pp/SDL3pp_events.h>
@@ -21,6 +17,10 @@
 #include <include/gpu/ganesh/gl/GrGLInterface.h>
 #include <include/gpu/ganesh/gl/GrGLBackendSurface.h>
 
+
+#include <SDLA/renderer/window.h>
+#include <SDLA/core/types/color.h>
+#include <SDLA/utils/errors.h>
 
 
 namespace SDLA {
@@ -103,6 +103,7 @@ sk_sp<SkSurface>  PreviewRenderer::_create_sk_surface(int w, int h){
 }
 
 
+/// TODO: handle the event with a proper window id
 void PreviewRenderer::idle() const {
   bool running = true;
   while(running){

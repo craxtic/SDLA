@@ -1,10 +1,10 @@
 #include <SDLA/mobjects/cloud.h>
+#include <SDLA/core/types/color.h>
 #include <include/core/SkColor.h>
-
 
 namespace SDLA {
 
-MobjectCloud::MobjectCloud(size_t init_mobcount, size_t std_pocount){
+MobjectCloud::MobjectCloud(size_t init_mobcount, size_t std_pocount) {
 
   this->points.reserve(init_mobcount * std_pocount);
   this->paints.reserve(init_mobcount);
@@ -12,10 +12,8 @@ MobjectCloud::MobjectCloud(size_t init_mobcount, size_t std_pocount){
 
   // initialize a default paint
   this->paints.emplace_back();
-  this->paints[0].setColor(SK_ColorWHITE);
+  this->paints[0].setColor(Color::White);
   this->paints[0].setStyle(SkPaint::kFill_Style);
 }
 
-
-
-}
+} // namespace SDLA

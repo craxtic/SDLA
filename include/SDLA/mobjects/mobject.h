@@ -1,17 +1,15 @@
 #pragma once
 
-#include <SDL3pp/SDL3pp_messagebox.h>
 #include <include/core/SkPaint.h>
+#include <include/core/SkPath.h>
 #include <include/core/SkPathBuilder.h>
+
 #include <vector>
-#include <iostream>
 
 #include <SDLA/config.h>
 #include <SDLA/core/types/color.h>
 #include <SDLA/core/types/vector3.h>
 #include <SDLA/mobjects/cloud.h>
-
-#include <include/core/SkPath.h>
 
 namespace SDLA {
 
@@ -19,68 +17,56 @@ namespace SDLA {
 class SDLA_API Mobject {
 
 protected:
-  const u32 id;
+  u32 id;
+
 public:
   float z_index;
 
   Mobject(Color color = Color::White, float z_index = 0);
 
-  // Mobject(u32 id): id(id) {}
-  
   virtual ~Mobject();
-   
-  [[nodiscard]] virtual SkPath get_path() const  {
-    SkPathBuilder builder;
-    return builder.detach();
-  };
 
-  // deep copy on the points & metadata cloud with new id
-  // [[nodiscard]] virtual constexpr Mobject copy(bool should_clone) const = 0;
-  
+  /// fetch the path of the mobject, (this can be raster version)
+  [[nodiscard]] virtual SkPath get_path() const = 0;
 
+  /// copy the id and move to a new object
+  /// reacllocate and clone the raw data if should_clone is true.
+  [[nodiscard]] virtual constexpr Mobject *copy(bool should_clone) const = 0;
+
+  /// return the point at a givel local index
   [[nodiscard]] inline constexpr vec3f &operator[](u32 index) const {
     return cloud->points[cloud->metadata[id].poindex + index];
   }
 
-
-
+  /// return the reference to the corresponding paint object of this mobject
   [[nodiscard]] inline constexpr const SkPaint &get_paint() const {
     return cloud->paints[cloud->metadata[id].paindex];
   }
 
+  /// return the global starting index to the points of this mobject
   [[nodiscard]] inline constexpr u32 get_poindex() const {
     return cloud->metadata[id].poindex;
   }
 
+  /// return the point count of this mobject
   [[nodiscard]] inline constexpr u16 get_pocount() const {
     return cloud->metadata[id].pocount;
   }
 
+  /// return the global index to the corresponding paint object
   [[nodiscard]] inline constexpr u16 get_paindex() const {
     return cloud->metadata[id].paindex;
   }
 
-  // virtual void generate_points() = 0;
-  // Mobject add(const Mobject &mobject);
-  
+protected:
+  /// push a new point to the cloud
+  /// this should be called in constructor of any Mobject
+  inline constexpr void push_point(vec3f point) { cloud->push_point(point); }
 
-
-protected:  
-  inline constexpr void push_point(vec3f point){
-    cloud->push_point(point);
-  }
-
-  inline constexpr void set_pocount(u16 pocount){
+  /// set the point count of this mobject
+  inline constexpr void set_pocount(u16 pocount) {
     cloud->metadata[id].pocount = pocount;
   }
-
-
 };
 
-
-\
-
-
-}
-
-
+} // namespace SDLA
