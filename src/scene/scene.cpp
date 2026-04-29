@@ -1,9 +1,11 @@
-#include <SDLA/mobjects/mobject.h>
-#include <SDLA/mobjects/vmobject.h>
-#include <SDLA/renderer/window.h>
-#include <SDLA/scene/scene.h>
+#include <axim/mobjects/mobject.h>
+#include <axim/mobjects/vmobject.h>
+#include <axim/renderer/window.h>
+#include <axim/scene/scene.h>
 
-namespace SDLA {
+#include "log.hpp"
+
+namespace axm {
 
 Scene::Scene(u8 frame_rate, const Color &bg_color, RenderMode render_mode)
     : frame_rate(frame_rate), bg_color(bg_color), render_mode(render_mode) {
@@ -46,6 +48,20 @@ void Scene::add(const Mobject &&mobject) {
   this->render_frame();
 }
 
+void Scene::play(Animation &animation) {
+
+  this->push(&animation.get_mobject());
+  
+  int total_frames = this->frame_rate * animation.get_run_time();
+  for(float f = 0; f < total_frames; f++){
+    float alpha = f / total_frames;
+    animation.interpolate(alpha);
+    this->render_frame();
+  }
+
+}
+
+
 void Scene::idle() const {
   this->renderer->idle();
   return;
@@ -58,4 +74,4 @@ Scene::~Scene() {
   this->rvalue_mobjects.clear();
 }
 
-} // namespace SDLA
+} // namespace axm

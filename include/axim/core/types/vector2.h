@@ -1,31 +1,24 @@
 #pragma once
 
-#include <SDLA/core/types/vector.h>
+#include <axim/core/types/vector.h>
 
-namespace SDLA {
+namespace axm {
 
-template <typename T> struct vec<3, T> {
+template <typename T> struct vec<2, T> {
 
   union {
-    T data[3]{};
+    T data[2];
     struct {
-      T x, y, z;
-    };
-    struct {
-      T r, g, b;
+      T x{}, y{};
     };
   };
   
   constexpr vec() = default;
   
-
-
-  constexpr vec(T x, T y, T z){
+  constexpr vec(T x, T y){
     this->x = x;
     this->y = y;
-    this->z = z;
   }
-
 
   /// vec[i]
   [[nodiscard]] constexpr T& operator[](int i) { return data[i]; }
@@ -34,39 +27,35 @@ template <typename T> struct vec<3, T> {
 
   /// \brief norm of vector |v|
   [[nodiscard]] constexpr T norm() const {
-    return sqrt(x * x + y * y + z * z);
+    return sqrt(x * x + y * y);
   }
 
   /// square of vector's norm 
   /// General property of Euclidean vector:  vector v^2 = norm |v|^2
   [[nodiscard]] constexpr T squared() const{
-    return x * x + y * y + z * z;
+    return x * x + y * y;
   }
 
 
   /// return a normal (perpendicular) vector of this*
-  // [[nodiscard]] constexpr vec<2, T> normal() const{
-  //   return vec<2, T>(-y, x);
-  // }
-
-  /// return a unit vector of this*
-  [[nodiscard]] constexpr vec<3, T> unit() const{
-    T norm = this->norm();
-    return  vec<3, T>(x/norm, y/norm, z/norm);
+  [[nodiscard]] constexpr vec<2, T> normal() const{
+    return vec<2, T>(-y, x);
   }
 
-
-  /// convert to SkPoint
-  
-
+  /// return a unit vector of this*
+  [[nodiscard]] constexpr vec<2, T> unit() const{
+    T norm = this->norm();
+    return  vec<2, T>(x/norm, y/norm);
+  }
 
 };
 
 
 
-template<typename T> using vec3 = vec<3, T>;
-using vec3i = vec3<int>;
-using vec3f = vec3<float>;
+template<typename T> using vec2 = vec<2, T>; 
+using vec2i = vec2<int>;
+using vec2u = vec2<unsigned int>;
+using vec2f = vec2<float>;
 
 
 } 

@@ -1,6 +1,8 @@
-#include <SDLA/mobjects/rect.h>
+#include <axim/mobjects/rect.h>
+#include "axim/mobjects/cloud.h"
 
-namespace SDLA {
+
+namespace axm {
 
 Rect::Rect(vec2f p1, vec2f p2, Color fill_color) : VMobject(fill_color) {
   this->set_pocount(4);
@@ -11,4 +13,24 @@ Rect::Rect(vec2f p1, vec2f p2, Color fill_color) : VMobject(fill_color) {
   return;
 }
 
-} // namespace SDLA
+[[nodiscard]] Mobject *Rect::copy(bool should_clone) const {
+    Rect *_Rect = new Rect();
+    
+    if(!should_clone) {
+      _Rect->id = this->id;
+      return _Rect;
+    }
+
+    _Rect->id = cloud->new_mobject_uid();
+    cloud->push_metadata({
+      cloud->new_poindex(),
+      this->get_pocount(),
+      this->get_paindex()
+    });
+    for(int i = 0; i < _Rect->get_pocount(); i++)
+      _Rect->push_point((*this)[i]);
+
+    return _Rect;
+  }
+
+} // namespace axm

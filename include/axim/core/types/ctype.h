@@ -1,5 +1,4 @@
-#ifndef _SDLA_CTYPE_
-#define _SDLA_CTYPE_
+#pragma once
 
 #include <cstdint>
 #include <stdfloat>
@@ -27,4 +26,3 @@ using f64 = double;
 // using f128 = std::float128_t;
 
 
-#endif

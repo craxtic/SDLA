@@ -6,15 +6,15 @@
 
 #include <vector>
 
-#include <SDLA/config.h>
-#include <SDLA/core/types/color.h>
-#include <SDLA/core/types/vector3.h>
-#include <SDLA/mobjects/cloud.h>
+#include <axim/config.h>
+#include <axim/core/types/color.h>
+#include <axim/core/types/vector3.h>
+#include <axim/mobjects/cloud.h>
 
-namespace SDLA {
+namespace axm {
 
 /// Mathematical Object Class
-class SDLA_API Mobject {
+class AXIM_API Mobject {
 
 protected:
   u32 id;
@@ -69,4 +69,4 @@ protected:
   }
 };
 
-} // namespace SDLA
+} // namespace axm

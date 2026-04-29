@@ -1,10 +1,12 @@
-#include <SDLA/mobjects/cloud.h>
-#include <SDLA/mobjects/mobject.h>
+#include "log.hpp"
+#include <axim/mobjects/cloud.h>
+#include <axim/mobjects/mobject.h>
 
-namespace SDLA {
+namespace axm {
 
 Mobject::Mobject(Color color, float z_index)
     : z_index(z_index), id(cloud->metadata.size()) {
+  
   cloud->push_metadata(MobjectMetadata(cloud->points.size(), 0, 0));
 
   /// TODO: handle z_index initialization
@@ -12,4 +14,4 @@ Mobject::Mobject(Color color, float z_index)
 
 Mobject::~Mobject() {}
 
-} // namespace SDLA
+} // namespace axm

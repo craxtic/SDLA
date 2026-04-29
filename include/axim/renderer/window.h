@@ -1,16 +1,16 @@
 #pragma once 
 
-#include "SDLA/core/types/color.h"
-#include <SDLA/renderer/renderer_interface.h>
+#include "axim/core/types/color.h"
+#include <axim/renderer/renderer_interface.h>
 
 #include <SDL3pp/SDL3pp_video.h>
 #include <include/core/SkSurface.h>
 
 
-namespace SDLA {
+namespace axm {
 
   
-class SDLA_API PreviewRenderer : public IRenderer {
+class AXIM_API PreviewRenderer : public IRenderer {
   SDL::Window window;
   sk_sp<SkSurface> surface;
   sk_sp<GrDirectContext> context;

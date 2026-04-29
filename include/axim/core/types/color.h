@@ -1,14 +1,14 @@
 #pragma once
 
 
-#include "SDLA/config.h"
-#include <SDLA/utils/utils.h>
-#include <SDLA/core/types/ctype.h>
+#include <axim/config.h>
+#include <axim/utils/utils.h>
+#include <axim/core/types/ctype.h>
 
 #include <ostream>
 #include <include/core/SkColor.h>
 
-namespace SDLA {
+namespace axm {
 
 // template <typename T>
 struct Color {

@@ -2,11 +2,11 @@
 #include <include/core/SkPath.h>
 #include <include/core/SkPathBuilder.h>
 
-#include <SDLA/core/types/color.h>
-#include <SDLA/core/types/vector3.h>
-#include <SDLA/mobjects/vmobject.h>
+#include <axim/core/types/color.h>
+#include <axim/core/types/vector3.h>
+#include <axim/mobjects/vmobject.h>
 
-namespace SDLA {
+namespace axm {
 
 VMobject::VMobject(Color fill_color) : Mobject(fill_color) {}
 
@@ -28,4 +28,4 @@ VMobject::VMobject(Color fill_color) : Mobject(fill_color) {}
   return builder.detach();
 };
 
-} // namespace SDLA
+} // namespace axm

@@ -1,6 +1,6 @@
-#include <SDLA/core/types/color.h>
+#include <axim/core/types/color.h>
 
-namespace SDLA {
+namespace axm {
   
 
 

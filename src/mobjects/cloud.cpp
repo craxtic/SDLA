@@ -1,8 +1,8 @@
-#include <SDLA/mobjects/cloud.h>
-#include <SDLA/core/types/color.h>
+#include <axim/mobjects/cloud.h>
+#include <axim/core/types/color.h>
 #include <include/core/SkColor.h>
 
-namespace SDLA {
+namespace axm {
 
 MobjectCloud::MobjectCloud(size_t init_mobcount, size_t std_pocount) {
 
@@ -16,4 +16,4 @@ MobjectCloud::MobjectCloud(size_t init_mobcount, size_t std_pocount) {
   this->paints[0].setStyle(SkPaint::kFill_Style);
 }
 
-} // namespace SDLA
+} // namespace axm

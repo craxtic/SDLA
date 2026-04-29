@@ -4,11 +4,11 @@
 #include <cstddef>
 #include <ostream>
 
-#include <SDLA/config.h>
-#include <SDLA/core/types/ctype.h>
-#include <SDLA/utils/utils.h>
+#include <axim/config.h>
+#include <axim/core/types/ctype.h>
+#include <axim/utils/utils.h>
 
-namespace SDLA {
+namespace axm {
 
 /// vector<dimention, type>
 
@@ -157,7 +157,7 @@ constexpr std::ostream& operator<<(std::ostream &stream, const vec<D, T> &v){
 
 
 
-} // namespace SDLA
+} // namespace axm
 
 
 

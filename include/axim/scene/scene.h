@@ -1,19 +1,19 @@
 #pragma once
 
-#include <SDLA/animations/animation.h>
-#include <SDLA/config.h>
-#include <SDLA/core/types/color.h>
-#include <SDLA/core/types/vector2.h>
-#include <SDLA/mobjects/mobject.h>
-#include <SDLA/renderer/renderer_interface.h>
+#include <axim/animations/animation.h>
+#include <axim/config.h>
+#include <axim/core/types/color.h>
+#include <axim/core/types/vector2.h>
+#include <axim/mobjects/mobject.h>
+#include <axim/renderer/renderer_interface.h>
 
 #include <vector>
 
-namespace SDLA {
+namespace axm {
 
 enum class RenderMode { Preview, Export };
 
-class SDLA_API Scene final {
+class AXIM_API Scene final {
 
   IRenderer *renderer;
   std::vector<Mobject *> mobjects; /// z_index of 0
@@ -53,9 +53,9 @@ public:
   void add(const Mobject &&mobject);
 
   /// play an animation
-  void play(const Animation &animatoin);
+  void play(Animation &animatoin);
 
   void idle() const;
 };
 
-} // namespace SDLA
+} // namespace axm

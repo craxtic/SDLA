@@ -1,12 +1,12 @@
-#include "SDLA/config.h"
-#include "SDLA/renderer/window.h"
+#include "axim/config.h"
+#include "axim/renderer/window.h"
 #include <SDL3pp/SDL3pp_stdinc.h>
-#include <SDLA/mobjects/cloud.h>
+#include <axim/mobjects/cloud.h>
 #include <iostream>
 
-#include <SDLA/config.h>
+#include <axim/config.h>
 
-namespace SDLA {
+namespace axm {
 
 /// these objects are created to last the entire life time of the program
 /// no free is required, the memory leak is harmless
@@ -19,8 +19,8 @@ PreviewRenderer *const preview_renderer = new PreviewRenderer();
 static class _init {
 
 public:
-  _init() { std::cout << "sdla run" << std::endl; }
+  _init() {  }
 
 } init;
 
-} // namespace SDLA
+} // namespace axm

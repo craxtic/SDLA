@@ -1,12 +1,14 @@
 #pragma once
 
+#include "axim/config.h"
+#include "log.hpp"
 #include <vector>
 
 #include <include/core/SkPaint.h>
 
-#include <SDLA/core/types/vector3.h>
+#include <axim/core/types/vector3.h>
 
-namespace SDLA {
+namespace axm {
 
 struct MobjectMetadata {
   u32 poindex; /// point index
@@ -39,8 +41,17 @@ public:
     this->metadata.emplace_back(metadata.poindex, metadata.pocount,
                                 metadata.paindex);
   }
+
+  inline u32 new_mobject_uid(){
+    return metadata.size();
+  }
+
+  inline u32 new_poindex(){
+    return points.size();
+  }
+
 };
 
 extern MobjectCloud *const cloud;
 
-} // namespace SDLA
+} // namespace axm

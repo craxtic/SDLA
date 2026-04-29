@@ -1,13 +1,13 @@
 #pragma once
 
-#include "SDLA/config.h"
-#include <SDLA/core/types/color.h>
+#include "axim/config.h"
+#include <axim/core/types/color.h>
 #include <include/core/SkPaint.h>
 #include <include/core/SkPath.h>
 
-namespace SDLA {
+namespace axm {
 
-class SDLA_API IRenderer {
+class AXIM_API IRenderer {
 
 public:
   virtual ~IRenderer() = default;
@@ -26,4 +26,4 @@ public:
   virtual void idle() const = 0;
 };
 
-} // namespace SDLA
+} // namespace axm

@@ -1,13 +1,13 @@
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/benchmark/catch_benchmark.hpp>
 
-#include <SDLA/core/vector2.h>
+#include <axim/core/vector2.h>
 
-SDLA::vec2f v(3, 4);
+axim::vec2f v(3, 4);
 
 TEST_CASE() {
   REQUIRE(v.norm() == 5 );
-  REQUIRE(v.normal() == SDLA::vec2f(-4, 3));  
+  REQUIRE(v.normal() == axim::vec2f(-4, 3));  
 }
 
 TEST_CASE(){

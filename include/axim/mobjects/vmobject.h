@@ -1,10 +1,10 @@
 #pragma once
 
-#include <SDLA/mobjects/mobject.h>
+#include <axim/mobjects/mobject.h>
 
-namespace SDLA {
+namespace axm {
 
-class SDLA_API VMobject : public Mobject {
+class AXIM_API VMobject : public Mobject {
 
 public:
   VMobject() = default;
@@ -14,4 +14,4 @@ public:
   [[nodiscard]] SkPath get_path() const override;
 };
 
-} // namespace SDLA
+} // namespace axm

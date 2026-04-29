@@ -18,12 +18,12 @@
 #include <include/gpu/ganesh/gl/GrGLBackendSurface.h>
 
 
-#include <SDLA/renderer/window.h>
-#include <SDLA/core/types/color.h>
-#include <SDLA/utils/errors.h>
+#include <axim/renderer/window.h>
+#include <axim/core/types/color.h>
+#include <axim/utils/errors.h>
 
 
-namespace SDLA {
+namespace axm {
 
   
 PreviewRenderer::PreviewRenderer(){
@@ -35,7 +35,7 @@ PreviewRenderer::PreviewRenderer(){
 
 
   window = SDL::CreateWindow(
-    "SDLA Preview", 
+    "axim Preview", 
     {0, 0},
     SDL::WINDOW_OPENGL | SDL::WINDOW_RESIZABLE
   );

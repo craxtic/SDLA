@@ -1,8 +1,8 @@
 #pragma once
 
-#include <SDLA/core/types/vector.h>
+#include <axim/core/types/vector.h>
 
-namespace SDLA {
+namespace axm {
 
 template <typename T> struct vec<4, T> {
 
