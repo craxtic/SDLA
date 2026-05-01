@@ -10,18 +10,3 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org.
  */
-
-#pragma once
-
-#include <utility>
-
-/// unrolling helper function
-template <std::size_t N, typename F>
-constexpr void static_loop_unroll(F &&op_func) noexcept {
-
-  [&]<std::size_t... Is>(std::index_sequence<Is...>){
-    (std::forward<F>(op_func)(Is), ...);
-  }(std::make_index_sequence<N>{});
-
-  return;
-}

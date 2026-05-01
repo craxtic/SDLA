@@ -11,7 +11,9 @@ target("axim")
   add_links("SDL3")
   add_links("skia")
 
-target("main")
+target("example")
   set_kind("binary")
-  add_files("main-test.cpp")
+  add_files("example.cpp")
   add_deps("axim")
+
+
