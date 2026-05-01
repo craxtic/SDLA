@@ -30,12 +30,17 @@ namespace axm {
 class AXIM_API Mobject {
 
 protected:
-  u32 id;
+  u32 poindex;
+  u16 pocount;
+  u16 paindex;
+
 
 public:
   float z_index;
 
-  Mobject(Color color = Color::White, float z_index = 0);
+  Mobject() = default;
+
+  Mobject(Color color, float z_index = 0);
 
   virtual ~Mobject();
 
@@ -48,27 +53,27 @@ public:
 
   /// return the point at a givel local index
   [[nodiscard]] inline constexpr vec3f &operator[](u32 index) const {
-    return cloud->points[cloud->metadata[id].poindex + index];
+    return cloud->points[poindex + index];
   }
 
   /// return the reference to the corresponding paint object of this mobject
   [[nodiscard]] inline constexpr const SkPaint &get_paint() const {
-    return cloud->paints[cloud->metadata[id].paindex];
+    return cloud->paints[paindex];
   }
 
   /// return the global starting index to the points of this mobject
   [[nodiscard]] inline constexpr u32 get_poindex() const {
-    return cloud->metadata[id].poindex;
+    return poindex;
   }
 
   /// return the point count of this mobject
   [[nodiscard]] inline constexpr u16 get_pocount() const {
-    return cloud->metadata[id].pocount;
+    return pocount;
   }
 
   /// return the global index to the corresponding paint object
   [[nodiscard]] inline constexpr u16 get_paindex() const {
-    return cloud->metadata[id].paindex;
+    return paindex;
   }
 
 protected:
@@ -78,7 +83,7 @@ protected:
 
   /// set the point count of this mobject
   inline constexpr void set_pocount(u16 pocount) {
-    cloud->metadata[id].pocount = pocount;
+    this->pocount = pocount;
   }
 };
 

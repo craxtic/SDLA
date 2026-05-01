@@ -11,16 +11,18 @@
  * file, You can obtain one at https://mozilla.org.
  */
 
-#include "log.hpp"
 #include <axim/mobjects/cloud.h>
 #include <axim/mobjects/mobject.h>
+#include <include/core/SkPaint.h>
 
 namespace axm {
 
 Mobject::Mobject(Color color, float z_index)
-    : z_index(z_index), id(cloud->metadata.size()) {
+    : z_index(z_index), poindex(cloud->new_poindex()) {
   
-  cloud->push_metadata(MobjectMetadata(cloud->points.size(), 0, 0));
+  this->paindex = cloud->init_new_paint();
+  SkPaint &paint = cloud->paints.at(this->paindex);
+  paint.setColor(color);
 
   /// TODO: handle z_index initialization
 }

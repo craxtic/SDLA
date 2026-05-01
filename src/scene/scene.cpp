@@ -15,8 +15,8 @@
 #include <axim/mobjects/vmobject.h>
 #include <axim/renderer/window.h>
 #include <axim/scene/scene.h>
+#include <ostream>
 
-#include "log.hpp"
 
 namespace axm {
 
@@ -85,6 +85,7 @@ Scene::~Scene() {
   for (Mobject *mob : this->rvalue_mobjects)
     delete mob;
   this->rvalue_mobjects.clear();
+
 }
 
 } // namespace axm
