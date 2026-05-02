@@ -11,41 +11,49 @@
  * file, You can obtain one at https://mozilla.org.
  */
 
+#include "axim/renderer/renderer_interface.h"
 #include <axim/mobjects/mobject.h>
 #include <axim/mobjects/vmobject.h>
 #include <axim/renderer/window.h>
 #include <axim/scene/scene.h>
-#include <ostream>
+#include <axim/utils/errors.h>
 
 
 namespace axm {
 
-Scene::Scene(u8 frame_rate, const Color &bg_color, RenderMode render_mode)
-    : frame_rate(frame_rate), bg_color(bg_color), render_mode(render_mode) {
-  if (render_mode == RenderMode::Preview) {
-    this->renderer = preview_renderer;
-  }
+Scene::Scene(u8 frame_rate, const Color &bg_color, IRenderer* renderer)
+    : frame_rate(frame_rate), bg_color(bg_color), renderer(renderer) {
 
+  
   this->mobjects.reserve(MOBJECT_COUNT_PER_SCENE_PROBABLY);
-  this->render_frame();
+  
+  if(renderer == nullptr) return;
+  renderer->make_current();
+  this->canvas = renderer->get_canvas();
+
 }
 
 void Scene::render_frame() const {
-  this->renderer->clear(this->bg_color);
+  this->canvas->clear(this->bg_color);
+  
   for (const Mobject *mobject : this->mobjects) {
     SkPath path = mobject->get_path();
     SkPaint paint = mobject->get_paint();
-    this->renderer->draw_path(path, paint);
+    this->canvas->drawPath(path, paint);
   }
+
   this->renderer->present();
   return;
 }
 
-void Scene::set_render_mode(RenderMode render_mode) {
-  if (render_mode == RenderMode::Preview)
-    this->renderer = preview_renderer;
+void Scene::set_renderer(IRenderer *renderer) {
+  if (renderer == nullptr) 
+    return;
 
-  this->render_mode = render_mode;
+  renderer->make_current();
+  this->canvas = renderer->get_canvas();
+  this->renderer = renderer;
+  return;
 }
 
 void Scene::add(Mobject &mobject) {

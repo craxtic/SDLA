@@ -27,7 +27,7 @@ namespace axm {
 
 MobjectCloud *const cloud =
     new MobjectCloud(MOBJECT_COUNT_PER_SCENE_PROBABLY, 10);
-PreviewRenderer *const preview_renderer = new PreviewRenderer();
+// PreviewRenderer *const preview_renderer = new PreviewRenderer();
 
 static class _init {
 

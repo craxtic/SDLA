@@ -20,24 +20,27 @@
 #include <axim/mobjects/mobject.h>
 #include <axim/renderer/renderer_interface.h>
 
+#include <include/core/SkCanvas.h>
+
+
 #include <vector>
 
 namespace axm {
 
-enum class RenderMode { Preview, Export };
+// enum class RenderMode { Preview, Export };
 
 class AXIM_API Scene final {
 
   IRenderer *renderer;
+  SkCanvas *canvas;
   std::vector<Mobject *> mobjects; /// z_index of 0
   std::vector<Mobject *> rvalue_mobjects;
   u8 frame_rate;
   Color bg_color;
-  RenderMode render_mode;
+
 
 public:
-  Scene(u8 frame_rate, const Color &bg_color,
-        RenderMode render_mode = RenderMode::Preview);
+  Scene(u8 frame_rate, const Color &bg_color, IRenderer *renderer);
 
   ~Scene();
 
@@ -56,7 +59,7 @@ public:
   }
 
   /// set the render mode to preview or export
-  void set_render_mode(RenderMode render_mode);
+  void set_renderer(IRenderer *renderer);
 
   /// render the current frame using the mobject list
   void render_frame() const;

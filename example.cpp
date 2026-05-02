@@ -3,12 +3,14 @@
 #include "axim/animations/shift.h"
 #include "axim/scene/scene.h"
 #include <axim/axim.h>
+#include <axim/renderer/window.h>
 
 using namespace axm;
 
 int main(){
 
-  axm::Scene scene(60, axm::Color::Black);
+  PreviewRenderer preview_renderer;
+  Scene scene(60, axm::Color::Black, &preview_renderer);
   
   Rect r({100, 100}, {200, 200}, Color::Blue);
   Shift sh(r, {200, 0});
@@ -18,6 +20,9 @@ int main(){
   scene.play(sh);
   
   scene.idle();
+
+
+
 
   return 0;
 }

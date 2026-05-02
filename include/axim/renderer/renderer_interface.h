@@ -15,8 +15,7 @@
 
 #include "axim/config.h"
 #include <axim/core/types/color.h>
-#include <include/core/SkPaint.h>
-#include <include/core/SkPath.h>
+#include <include/core/SkCanvas.h>
 
 namespace axm {
 
@@ -25,11 +24,11 @@ class AXIM_API IRenderer {
 public:
   virtual ~IRenderer() = default;
 
-  /// clear the buffer with a given color
-  virtual void clear(Color color) const = 0;
+  /// set this renderer as the active target for drawing
+  virtual void make_current() = 0;
 
-  /// draw a path with a given paint object
-  virtual void draw_path(const SkPath &path, const SkPaint &paint) const = 0;
+  /// get a new canvas from this renderer
+  virtual SkCanvas *get_canvas() = 0;
 
   /// display the drawn buffer to the output
   virtual void present() const = 0;

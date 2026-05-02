@@ -25,14 +25,15 @@
 #include <include/gpu/ganesh/GrBackendSurface.h>
 #include <include/gpu/ganesh/SkSurfaceGanesh.h>
 #include <include/gpu/ganesh/gl/GrGLDirectContext.h>
-#include <include/gpu/ganesh/gl/GrGLInterface.h>
 #include <include/gpu/ganesh/gl/GrGLBackendSurface.h>
+#include <include/gpu/ganesh/GrDirectContext.h>
+#include <include/gpu/ganesh/gl/GrGLDirectContext.h>
+#include <include/gpu/ganesh/gl/GrGLInterface.h>
 
 
 #include <axim/renderer/window.h>
 #include <axim/core/types/color.h>
 #include <axim/utils/errors.h>
-
 
 namespace axm {
 
@@ -52,48 +53,46 @@ PreviewRenderer::PreviewRenderer(){
   );
   check_null_unlikely(window, "CreateWindow");
 
-
-  SDL::GLContext gl_context(window);
-  SDL::GL_MakeCurrent(window, gl_context);
-
+  this->gl_context = SDL::GL_CreateContext(this->window);
+  this->make_current();
 
   sk_sp<const GrGLInterface> interface = GrGLMakeNativeInterface();
-  context = GrDirectContexts::MakeGL(interface);
+  this->context = GrDirectContexts::MakeGL(interface);
   check_null_unlikely(context, "Context::MakeGL");
 
-  // fetch window size
+
+  return;
+}
+
+void PreviewRenderer::make_current() {
+
+  SDL::GL_MakeCurrent(this->window, this->gl_context);  
+};
+
+
+
+SkCanvas *PreviewRenderer::get_canvas(){
   SDL::GL_SwapWindow(window);
   SDL::PumpEvents();
   auto [width, height] = SDL::GetWindowSizeInPixels(window);
   
-  surface = _create_sk_surface(width, height);
+  this->surface = _create_sk_surface(width, height);
   check_null_unlikely(surface, "_create_sk_surface");
-  canvas = surface->getCanvas();
-  
-  return;
-}
-
-
-void PreviewRenderer::clear(Color color) const {
-  canvas->clear(color);
-  return;
-}
-
-void PreviewRenderer::draw_path(const SkPath &path, const SkPaint &paint) const {
-  canvas->drawPath(path, paint);
-  return;
+  return this->surface->getCanvas();
 }
 
 void PreviewRenderer::present() const {
-  context->flush();
+  this->context->flush();
   SDL::GL_SwapWindow(window);
 }
   
 PreviewRenderer::~PreviewRenderer() {
   window.Destroy();  
+  surface->unref();
+  context->unref();
+  gl_context.Destroy();
 }
   
-
 sk_sp<SkSurface>  PreviewRenderer::_create_sk_surface(int w, int h){
 
   GrGLFramebufferInfo gl_info = {0, 0x8058};

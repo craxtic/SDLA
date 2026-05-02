@@ -27,13 +27,17 @@ class AXIM_API PreviewRenderer : public IRenderer {
   SDL::Window window;
   sk_sp<SkSurface> surface;
   sk_sp<GrDirectContext> context;
+  SDL::GLContext gl_context; 
   SkCanvas *canvas;
+
 public:
   PreviewRenderer();
 
-  void clear(Color color) const override;
-  void draw_path(const SkPath &path, const SkPaint &paint) const override;
   void present() const override;
+
+  void make_current() override;
+  
+  SkCanvas *get_canvas() override;
 
   /// keep window alive and wait for window close event
   void idle() const override;
