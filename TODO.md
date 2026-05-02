@@ -15,6 +15,6 @@
   read some configs such as resolution, frame rate, ... 
 
 ## Export Mode
-- [ ] Add FFmpeg's license (may avoid GPL version)
-- [ ] Create `ExportRenderer` class 
-- [ ] Export with simple configs and flags for initial integration
+<!-- - [ ] Add FFmpeg's license (may avoid GPL version) -->
+- [x] Create a basic`ExportRenderer` class 
+- [x] Export with simple configs and flags for initial integration

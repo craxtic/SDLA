@@ -35,6 +35,8 @@
 #include <axim/core/types/color.h>
 #include <axim/utils/errors.h>
 
+// #include <iostream>
+
 namespace axm {
 
   
@@ -87,10 +89,10 @@ void PreviewRenderer::present() const {
 }
   
 PreviewRenderer::~PreviewRenderer() {
-  window.Destroy();  
-  surface->unref();
+  if (surface) surface->unref();
   context->unref();
   gl_context.Destroy();
+  window.Destroy();  
 }
   
 sk_sp<SkSurface>  PreviewRenderer::_create_sk_surface(int w, int h){

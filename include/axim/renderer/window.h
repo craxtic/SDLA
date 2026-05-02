@@ -48,6 +48,6 @@ private:
   sk_sp<SkSurface> _create_sk_surface(int w, int h);
 };
 
-extern PreviewRenderer * const preview_renderer;
+// extern PreviewRenderer * const preview_renderer;
 
 }
