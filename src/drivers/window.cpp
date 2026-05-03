@@ -31,7 +31,7 @@
 #include <include/gpu/ganesh/gl/GrGLInterface.h>
 
 
-#include <axim/renderer/window.h>
+#include <axim/drivers/window.h>
 #include <axim/core/types/color.h>
 #include <axim/utils/errors.h>
 
@@ -40,7 +40,7 @@
 namespace axm {
 
   
-PreviewRenderer::PreviewRenderer(){
+PreviewDriver::PreviewDriver(){
 
   SDL::Init(SDL::INIT_VIDEO);
   SDL::GL_SetAttribute(SDL::GL_DOUBLEBUFFER, 1);
@@ -66,14 +66,14 @@ PreviewRenderer::PreviewRenderer(){
   return;
 }
 
-void PreviewRenderer::make_current() {
+void PreviewDriver::make_current() {
 
   SDL::GL_MakeCurrent(this->window, this->gl_context);  
 };
 
 
 
-SkCanvas *PreviewRenderer::get_canvas(){
+SkCanvas *PreviewDriver::get_canvas(){
   SDL::GL_SwapWindow(window);
   SDL::PumpEvents();
   auto [width, height] = SDL::GetWindowSizeInPixels(window);
@@ -83,19 +83,19 @@ SkCanvas *PreviewRenderer::get_canvas(){
   return this->surface->getCanvas();
 }
 
-void PreviewRenderer::present() const {
+void PreviewDriver::present() const {
   this->context->flush();
   SDL::GL_SwapWindow(window);
 }
   
-PreviewRenderer::~PreviewRenderer() {
+PreviewDriver::~PreviewDriver() {
   if (surface) surface->unref();
   context->unref();
   gl_context.Destroy();
   window.Destroy();  
 }
   
-sk_sp<SkSurface>  PreviewRenderer::_create_sk_surface(int w, int h){
+sk_sp<SkSurface>  PreviewDriver::_create_sk_surface(int w, int h){
 
   GrGLFramebufferInfo gl_info = {0, 0x8058};
   GrBackendRenderTarget backend_rt = GrBackendRenderTargets::MakeGL(w, h, 0, 8, gl_info);
@@ -116,7 +116,7 @@ sk_sp<SkSurface>  PreviewRenderer::_create_sk_surface(int w, int h){
 
 
 /// TODO: handle the event with a proper window id
-void PreviewRenderer::idle() const {
+void PreviewDriver::idle() const {
   bool running = true;
   while(running){
     while(auto ev = SDL::PollEvent()){

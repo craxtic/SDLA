@@ -16,5 +16,5 @@
 
 ## Export Mode
 <!-- - [ ] Add FFmpeg's license (may avoid GPL version) -->
-- [x] Create a basic`ExportRenderer` class 
+- [x] Create a basic`ExportDriver` class 
 - [x] Export with simple configs and flags for initial integration

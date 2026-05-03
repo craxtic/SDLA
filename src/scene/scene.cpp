@@ -11,17 +11,16 @@
  * file, You can obtain one at https://mozilla.org.
  */
 
-#include "axim/renderer/renderer_interface.h"
+#include "axim/drivers/driver.h"
 #include <axim/mobjects/mobject.h>
 #include <axim/mobjects/vmobject.h>
-#include <axim/renderer/window.h>
 #include <axim/scene/scene.h>
 #include <axim/utils/errors.h>
 
 
 namespace axm {
 
-Scene::Scene(u8 frame_rate, const Color &bg_color, IRenderer* renderer)
+Scene::Scene(u8 frame_rate, const Color &bg_color, DriverInterface* renderer)
     : frame_rate(frame_rate), bg_color(bg_color), renderer(renderer) {
 
   
@@ -46,7 +45,7 @@ void Scene::render_frame() const {
   return;
 }
 
-void Scene::set_renderer(IRenderer *renderer) {
+void Scene::set_renderer(DriverInterface *renderer) {
   if (renderer == nullptr) 
     return;
 

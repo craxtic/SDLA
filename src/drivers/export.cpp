@@ -1,4 +1,4 @@
-#include <axim/renderer/export.h>
+#include <axim/drivers/export.h>
 #include <cstdio>
 #include <format>
 #include <include/core/SkImageInfo.h>
@@ -9,7 +9,7 @@
 
 namespace axm {
 
-ExportRenderer::ExportRenderer(vec2i dimensions, std::string_view output_filename): dimensions(dimensions){
+ExportDriver::ExportDriver(vec2i dimensions, std::string_view output_filename): dimensions(dimensions){
 
 
   this->surface = SkSurfaces::Raster(SkImageInfo::MakeN32Premul(dimensions.x, dimensions.y));
@@ -34,17 +34,17 @@ ExportRenderer::ExportRenderer(vec2i dimensions, std::string_view output_filenam
 }
 
 
-void ExportRenderer::make_current() {
+void ExportDriver::make_current() {
   return;
 }
 
 /// get a new canvas from this renderer
-SkCanvas *ExportRenderer::get_canvas() {
+SkCanvas *ExportDriver::get_canvas() {
   return this->surface->getCanvas();
 }
 
 /// display the drawn buffer to the output
-void ExportRenderer::present() const {
+void ExportDriver::present() const {
   SkPixmap pixmap;
   if(this->surface->peekPixels(&pixmap)){
     fwrite(pixmap.addr(), 1, pixmap.computeByteSize(), this->ffmpeg);
@@ -52,12 +52,12 @@ void ExportRenderer::present() const {
 }
 
 /// pause
-void ExportRenderer::idle() const {
+void ExportDriver::idle() const {
   sleep(2);
   return;
 }
 
-ExportRenderer::~ExportRenderer() {
+ExportDriver::~ExportDriver() {
   this->surface->unref();
   pclose(this->ffmpeg);
 }

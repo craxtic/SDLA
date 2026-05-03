@@ -1,6 +1,6 @@
 #include "axim/core/types/vector2.h"
 #include <axim/config.h>
-#include <axim/renderer/renderer_interface.h>
+#include <axim/drivers/driver.h>
 #include <include/core/SkSurface.h>
 #include <cstdio>
 
@@ -8,7 +8,7 @@
 namespace axm {
 
 
-class AXIM_API ExportRenderer : public IRenderer {
+class AXIM_API ExportDriver : public DriverInterface {
 
   sk_sp<SkSurface> surface;
   FILE* ffmpeg;
@@ -16,8 +16,8 @@ class AXIM_API ExportRenderer : public IRenderer {
 
 public:
 
-  ExportRenderer(vec2i dimensions, std::string_view output_filename);
-  ~ExportRenderer();
+  ExportDriver(vec2i dimensions, std::string_view output_filename);
+  ~ExportDriver();
 
   virtual void make_current() override;
 

@@ -13,12 +13,12 @@
 
 #pragma once
 
-#include <sol/state_view.hpp>
 #define SOL_ALL_SAFETIES_ON 1
 #define SOL_TYPE_CHECK_INVARIANT_ID 1
 #include <axim/config.h>
-#include <sol/forward.hpp>
 #include <axim/scene/scene.h>
+
+#include <sol/forward.hpp>
 
 namespace axm::lua {
 

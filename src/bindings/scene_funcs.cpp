@@ -12,7 +12,8 @@
  */
 
 #include <axim/bindings/bindings.h>
-#include <axim/scene/scene.h>
+#include <sol/state_view.hpp>
+// #include <sol/sol.hpp>
 
 namespace axm {
 

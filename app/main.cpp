@@ -3,11 +3,11 @@
 #include "axim/core/types/color.h"
 #include "axim/mobjects/rect.h"
 #include "axim/mobjects/rect.h"
-#include "axim/renderer/renderer_interface.h"
+#include "axim/drivers/driver.h"
 #include "axim/scene/scene.h"
 #include <axim/axim.h>
-#include <axim/renderer/export.h>
-#include <axim/renderer/window.h>
+#include <axim/drivers/export.h>
+#include <axim/drivers/window.h>
 #include <unistd.h>
 
 #include <sol/sol.hpp>
@@ -28,16 +28,16 @@ int main(int argc, char *argv[]) {
   
 
 
-  IRenderer *renderer;
+  DriverInterface *renderer;
 
   char opt;
   std::cout << "demo code, \n1.preview\n2.export\nchoose: ";
   std::cin >> opt;
 
   if (opt == '1') {
-    renderer = new PreviewRenderer();
+    renderer = new PreviewDriver();
   } else if (opt == '2') {
-    renderer = new ExportRenderer({1920, 1080}, "test.mp4");
+    renderer = new ExportDriver({1920, 1080}, "test.mp4");
   } else
     return 0;
 

@@ -18,7 +18,7 @@
 #include <axim/core/types/color.h>
 #include <axim/core/types/vector2.h>
 #include <axim/mobjects/mobject.h>
-#include <axim/renderer/renderer_interface.h>
+#include <axim/drivers/driver.h>
 
 #include <include/core/SkCanvas.h>
 
@@ -31,7 +31,7 @@ namespace axm {
 
 class AXIM_API Scene final {
 
-  IRenderer *renderer;
+  DriverInterface *renderer;
   SkCanvas *canvas;
   std::vector<Mobject *> mobjects; /// z_index of 0
   std::vector<Mobject *> rvalue_mobjects;
@@ -40,7 +40,7 @@ class AXIM_API Scene final {
 
 
 public:
-  Scene(u8 frame_rate, const Color &bg_color, IRenderer *renderer);
+  Scene(u8 frame_rate, const Color &bg_color, DriverInterface *renderer);
 
   ~Scene();
 
@@ -59,7 +59,7 @@ public:
   }
 
   /// set the render mode to preview or export
-  void set_renderer(IRenderer *renderer);
+  void set_renderer(DriverInterface *renderer);
 
   /// render the current frame using the mobject list
   void render_frame() const;

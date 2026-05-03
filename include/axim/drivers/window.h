@@ -14,7 +14,7 @@
 #pragma once 
 
 #include "axim/core/types/color.h"
-#include <axim/renderer/renderer_interface.h>
+#include <axim/drivers/driver.h>
 
 #include <SDL3pp/SDL3pp_video.h>
 #include <include/core/SkSurface.h>
@@ -23,7 +23,7 @@
 namespace axm {
 
   
-class AXIM_API PreviewRenderer : public IRenderer {
+class AXIM_API PreviewDriver : public DriverInterface {
   SDL::Window window;
   sk_sp<SkSurface> surface;
   sk_sp<GrDirectContext> context;
@@ -31,7 +31,7 @@ class AXIM_API PreviewRenderer : public IRenderer {
   SkCanvas *canvas;
 
 public:
-  PreviewRenderer();
+  PreviewDriver();
 
   void present() const override;
 
@@ -42,12 +42,12 @@ public:
   /// keep window alive and wait for window close event
   void idle() const override;
 
-  ~PreviewRenderer();
+  ~PreviewDriver();
    
 private:
   sk_sp<SkSurface> _create_sk_surface(int w, int h);
 };
 
-// extern PreviewRenderer * const preview_renderer;
+// extern PreviewDriver * const preview_renderer;
 
 }

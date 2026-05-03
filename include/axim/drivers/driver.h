@@ -19,10 +19,10 @@
 
 namespace axm {
 
-class AXIM_API IRenderer {
+class AXIM_API DriverInterface {
 
 public:
-  virtual ~IRenderer() = default;
+  virtual ~DriverInterface() = default;
 
   /// set this renderer as the active target for drawing
   virtual void make_current() = 0;
