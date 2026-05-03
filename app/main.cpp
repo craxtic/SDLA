@@ -8,6 +8,7 @@
 #include <axim/axim.h>
 #include <axim/drivers/export.h>
 #include <axim/drivers/window.h>
+#include <cstddef>
 #include <unistd.h>
 
 #include <sol/sol.hpp>
@@ -28,28 +29,36 @@ int main(int argc, char *argv[]) {
   
 
 
-  DriverInterface *renderer;
+  DriverInterface *driver;
 
   char opt;
   std::cout << "demo code, \n1.preview\n2.export\nchoose: ";
   std::cin >> opt;
 
   if (opt == '1') {
-    renderer = new PreviewDriver();
+    driver = new PreviewDriver();
   } else if (opt == '2') {
-    renderer = new ExportDriver({1920, 1080}, "test.mp4");
+    driver = new ExportDriver({1920, 1080}, "test.mp4");
   } else
     return 0;
 
-  Scene scene(60, axm::Color::Black, renderer);
-
+  Scene scene(60, axm::Color::Black, driver);
   axm::lua::bind_scene_funcs(lua, scene);
 
+  bool previewing = true;
+  while(previewing){
 
-  lua.script_file(argv[1]);
+    std::cout << "reload" << std::endl;
+  
+    lua.script_file(argv[1]);
+
+    scene.idle(-1, &previewing);
+
+    scene.clear();
+  }
 
 
-  scene.idle();
+
 
   return 0;
 }
