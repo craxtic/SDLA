@@ -2,3 +2,4 @@ Skia - Copyright (c) 2011 Google Inc. All rights reserved - BSD 3-Clause license
 
 SDL3 - Copyright (c) 1997-2024 Sam Lantinga <slouken@libsdl.org> - zlib license
 
+sol2 - Copyright (c) 2013-2022 Rapptz, ThePhD, and contributors - MIT license

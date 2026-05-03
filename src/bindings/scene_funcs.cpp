@@ -11,11 +11,16 @@
  * file, You can obtain one at https://mozilla.org.
  */
 
-
-#include <axim/core/types/color.h>
+#include <axim/bindings/bindings.h>
+#include <axim/scene/scene.h>
 
 namespace axm {
-  
+
+void lua::bind_scene_funcs(sol::state_view state, Scene &scene){
+
+  state.set_function("add", [&](axm::Mobject &mob) { scene.add(mob); });
+
+}
 
 
 

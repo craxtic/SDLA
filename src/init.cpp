@@ -12,7 +12,6 @@
  */
 
 #include "axim/config.h"
-#include "axim/renderer/window.h"
 #include <SDL3pp/SDL3pp_stdinc.h>
 #include <axim/mobjects/cloud.h>
 #include <iostream>
