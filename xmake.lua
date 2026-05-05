@@ -1,6 +1,13 @@
 add_rules("mode.debug", "mode.release")
 set_languages("c++23")
 
+add_requires("skia")
+add_requires("libsdl3")
+add_requires("ffmpeg")
+add_requires("lua5.4")
+add_requires("sol2")
+
+
 --- for development
 add_includedirs("include") ---
 set_warnings("allextra")
@@ -17,7 +24,7 @@ target("axim-engine") do
   add_files("src/mobjects/**.cpp")
   add_files("src/scene/**.cpp")
   
-  add_links("skia")
+  add_packages("skia")
 end
 
 
@@ -31,7 +38,7 @@ target("axim-presenters") do
   add_defines("AXIM_API_EXPORTS")
   add_files("src/presenters/**.cpp")
   
-  add_links("SDL3")
+  add_packages("libsdl3")
 end
 
 
@@ -44,8 +51,7 @@ target("axim-lua") do
   add_defines("AXIM_API_EXPORTS")
   add_files("src/bindings/**.cpp")
 
-  add_links("lua5.4")
-  add_includedirs("/usr/include/lua5.4")
+  add_packages("sol2", "lua5.4")
 end
 
 
@@ -68,8 +74,7 @@ target("axim") do
   add_deps("axim-lua")
   set_targetdir("$(projectdir)/app")
   
-  add_links("lua5.4")
-  add_includedirs("/usr/include/lua5.4")
+  add_packages("lua5.4", "sol2")
 end
 
 

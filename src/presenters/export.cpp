@@ -20,6 +20,19 @@
 #include <string_view>
 
 
+#ifdef _WIN32
+
+#define POPEN _popen
+#define PCLOSE _pclose
+
+#else
+
+#define POPEN popen
+#define PCLOSE pclose
+
+#endif
+
+
 namespace axm {
 
 ExportPresenter::ExportPresenter(vec2i dimensions, std::string_view output_filename): dimensions(dimensions){
@@ -42,7 +55,7 @@ ExportPresenter::ExportPresenter(vec2i dimensions, std::string_view output_filen
     dimensions.x, dimensions.y, output_filename
   );
 
-  this->ffmpeg = popen(command.c_str(), "w");
+  this->ffmpeg = POPEN(command.c_str(), "w");
 
 }
 
@@ -66,13 +79,13 @@ void ExportPresenter::present() const {
 
 /// pause
 void ExportPresenter::idle(int duration, bool *running) const {
-  sleep(2);
+  
   return;
 }
 
 ExportPresenter::~ExportPresenter() {
   this->surface->unref();
-  pclose(this->ffmpeg);
+  PCLOSE(this->ffmpeg);
 }
 
 

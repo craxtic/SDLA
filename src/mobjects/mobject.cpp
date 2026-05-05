@@ -27,6 +27,8 @@ Mobject::Mobject(Color color, float z_index)
   /// TODO: handle z_index initialization
 }
 
-Mobject::~Mobject() {}
+Mobject::~Mobject() {
+  
+}
 
 } // namespace axm

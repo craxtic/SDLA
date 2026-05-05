@@ -16,7 +16,7 @@
 #include "axim/core/types/color.h"
 #include <axim/presenters/presenter.h>
 
-#include <SDL3pp/SDL3pp_video.h>
+#include <SDL3/SDL_video.h>
 #include <include/core/SkSurface.h>
 
 
@@ -24,10 +24,10 @@ namespace axm {
 
   
 class AXIM_API PreviewPresenter : public PresenterInterface {
-  SDL::Window window;
+  SDL_Window *window;
   sk_sp<SkSurface> surface;
   sk_sp<GrDirectContext> context;
-  SDL::GLContext gl_context; 
+  SDL_GLContext gl_context; 
   SkCanvas *canvas;
 
 public:

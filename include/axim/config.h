@@ -18,10 +18,19 @@
 #define AXIM_VERSION_MINOR 0
 #define AXIM_VERSION_PATCH 0
 
+// #include <SFML/Config.hpp>
 
+#if defined (_WIN32)
+
+#define AXIM_API_EXPORT __declspec(dllexport)
+#define AXIM_API_IMPORT __declspec(dllimport)
+
+#else  /* Linux, FreeBSD, macOS */
 
 #define AXIM_API_EXPORT __attribute__((__visibility__("default")))
 #define AXIM_API_IMPORT __attribute__((__visibility__("default")))
+
+#endif
 
 
 #if defined (AXIM_API_EXPORTS)

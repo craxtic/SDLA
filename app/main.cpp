@@ -9,8 +9,6 @@
 #include <axim/axim.h>
 #include <axim/presenters/export.h>
 #include <axim/presenters/window.h>
-#include <cstddef>
-#include <unistd.h>
 
 #include <sol/sol.hpp>
 
@@ -54,19 +52,19 @@ int main(int argc, char *argv[]) {
   scene.play(sh1);
   scene.play(sh2);
 
-  // bool previewing = true;
-  // while(previewing){
+  bool previewing = true;
+  while(previewing){
 
-  //   std::cout << "reload" << std::endl;
+    std::cout << "reload" << std::endl;
   
-  //   lua.script_file(argv[1]);
+    lua.script_file(argv[1]);
 
-  //   scene.idle(-1, &previewing);
+    scene.idle(-1, &previewing);
 
-  //   scene.clear();
-  // }
+    scene.clear();
+  }
 
-  scene.idle(-1);
+  // scene.idle(-1);
 
 
   return 0;
