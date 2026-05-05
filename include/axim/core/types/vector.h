@@ -141,7 +141,7 @@ constexpr vec<D, T>& operator-=(vec<D, T> &v, const vec<D, T> &u) {
 
 
 
-/// dot product * \
+/// dot product * 
 /// note: we'll use ^ for vector cross product (french context)
 template<int D, typename T>
 constexpr T operator*(const vec<D, T> v, const vec<D, T> u){

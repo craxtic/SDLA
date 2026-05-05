@@ -19,15 +19,15 @@
 
 namespace axm {
 
-class AXIM_API DriverInterface {
+class AXIM_API PresenterInterface {
 
 public:
-  virtual ~DriverInterface() = default;
+  virtual ~PresenterInterface() = default;
 
-  /// set this renderer as the active target for drawing
+  /// set this presenter as the active target for drawing
   virtual void make_current() = 0;
 
-  /// get a new canvas from this renderer
+  /// get a new canvas from this presenter
   virtual SkCanvas *get_canvas() = 0;
 
   /// display the drawn buffer to the output
@@ -35,7 +35,7 @@ public:
 
   /// pause
   /// TODO: introduce a new param to accept the idling duration
-  virtual void idle() const = 0;
+  virtual void idle(int duration, bool *running) const = 0;
 };
 
 } // namespace axm

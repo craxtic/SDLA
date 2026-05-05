@@ -18,7 +18,7 @@
 namespace axm {
 
 Mobject::Mobject(Color color, float z_index)
-    : z_index(z_index), poindex(cloud->new_poindex()) {
+    : poindex(cloud->new_poindex()), z_index(z_index) {
   
   this->paindex = cloud->init_new_paint();
   SkPaint &paint = cloud->paints.at(this->paindex);

@@ -3,7 +3,8 @@ set_languages("c++23")
 
 --- for development
 add_includedirs("include") ---
-
+set_warnings("allextra")
+set_policy("build.warning", true)
 
 
 --- @axim-engine
@@ -21,14 +22,14 @@ end
 
 
 
---- @axim-driver
---- provide driver to output frames rendered by the engine 
+--- @axim-presenter
+--- provide presenter to output frames rendered by the engine 
 --- either preview, export, or integrate into an external enviroment
-target("axim-drivers") do
+target("axim-presenters") do
   set_kind("shared")
   add_cxflags("-fvisibility=hidden")
   add_defines("AXIM_API_EXPORTS")
-  add_files("src/drivers/**.cpp")
+  add_files("src/presenters/**.cpp")
   
   add_links("SDL3")
 end
@@ -63,7 +64,7 @@ target("axim") do
   set_kind("binary")
   add_files("app/**.cpp")
   add_deps("axim-engine")
-  add_deps("axim-drivers")
+  add_deps("axim-presenters")
   add_deps("axim-lua")
   set_targetdir("$(projectdir)/app")
   

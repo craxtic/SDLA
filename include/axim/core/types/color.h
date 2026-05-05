@@ -142,7 +142,7 @@ constexpr Color operator*(const Color v, const Color u){
   Color w;
   static_loop_unroll<4>([&](auto i){
     int result = int{v[i]} / k;
-    // w[i] = static_cast<u8>(result < 255 ? result : 255);
+    w[i] = static_cast<u8>(result < 255 ? result : 255);
   });
   return w;
 }

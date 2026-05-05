@@ -18,7 +18,7 @@
 #include <axim/core/types/color.h>
 #include <axim/core/types/vector2.h>
 #include <axim/mobjects/mobject.h>
-#include <axim/drivers/driver.h>
+#include <axim/presenters/presenter.h>
 
 #include <include/core/SkCanvas.h>
 
@@ -31,16 +31,18 @@ namespace axm {
 
 class AXIM_API Scene final {
 
-  DriverInterface *renderer;
+  PresenterInterface *presenter;
   SkCanvas *canvas;
+
   std::vector<Mobject *> mobjects; /// z_index of 0
   std::vector<Mobject *> rvalue_mobjects;
+  
   u8 frame_rate;
   Color bg_color;
 
 
 public:
-  Scene(u8 frame_rate, const Color &bg_color, DriverInterface *renderer);
+  Scene(u8 frame_rate, const Color &bg_color, PresenterInterface *presenter);
 
   ~Scene();
 
@@ -53,13 +55,17 @@ public:
   /// add an mobject to the mobject rendering list
   inline void push(Mobject *mobject) { mobjects.emplace_back(mobject); }
 
-  inline void remove(const Mobject &mobject) {
-    /// TODO: need a hash map maybe
-    ///
+  void remove(const Mobject &mobject);
+
+  /// clear all mobjects from the scene
+  inline void clear(){
+    this->mobjects.clear();
+    this->render_frame();
   }
 
+
   /// set the render mode to preview or export
-  void set_renderer(DriverInterface *renderer);
+  void set_presenter(PresenterInterface *presenter);
 
   /// render the current frame using the mobject list
   void render_frame() const;
@@ -71,7 +77,7 @@ public:
   /// play an animation
   void play(Animation &animatoin);
 
-  void idle() const;
+  void idle(float duration, bool *running = nullptr) const;
 };
 
 } // namespace axm

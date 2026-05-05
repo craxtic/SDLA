@@ -11,7 +11,7 @@
  * file, You can obtain one at https://mozilla.org.
  */
 
-#pragma 
+#pragma once
 
 #include <cstdio>
 

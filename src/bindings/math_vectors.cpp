@@ -14,7 +14,9 @@
 #include <axim/bindings/bindings.h>
 #include <axim/core/types/vector2.h>
 
+#include <sol/overload.hpp>
 #include <sol/state_view.hpp>
+#include <sol/types.hpp>
 
 namespace axm{
 
@@ -27,7 +29,15 @@ void register_vector2_type(sol::state_view state, std::string_view name){
     sol::constructors<vec2<T>(), vec2<T>(T, T)>(),
 
     "x", &vec2<T>::x,
-    "x", &vec2<T>::y
+    "y", &vec2<T>::y,
+
+    sol::meta_function::addition, [](const vec2<T> &v, const vec2<T> &u){ return v + u; },
+    sol::meta_function::subtraction, [](const vec2<T> &v, const vec2<T> &u){ return v - u; },
+    sol::meta_function::multiplication, sol::overload(
+      [](const vec2<T> &v, T k){ return v * k; },
+      [](T k, const vec2<T> &v){ return v * k; }
+      
+    )
 
   );
 

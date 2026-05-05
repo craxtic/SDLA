@@ -20,9 +20,9 @@ namespace axm {
 class Animation {
 
 protected:
-  const Mobject &begin_state;
   Mobject &mobject;
   float run_time;
+  const Mobject &begin_state;
 public:
   Animation(Mobject &target, float run_time)
       : mobject(target), run_time(run_time), begin_state(*(target.copy(true))) {}

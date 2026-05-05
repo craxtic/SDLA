@@ -11,7 +11,7 @@
  * file, You can obtain one at https://mozilla.org.
  */
 
-#include "axim/drivers/driver.h"
+#include "axim/presenters/presenter.h"
 #include <axim/mobjects/mobject.h>
 #include <axim/mobjects/vmobject.h>
 #include <axim/scene/scene.h>
@@ -20,15 +20,15 @@
 
 namespace axm {
 
-Scene::Scene(u8 frame_rate, const Color &bg_color, DriverInterface* renderer)
-    : frame_rate(frame_rate), bg_color(bg_color), renderer(renderer) {
+Scene::Scene(u8 frame_rate, const Color &bg_color, PresenterInterface* presenter)
+    : presenter(presenter), frame_rate(frame_rate), bg_color(bg_color){
 
   
   this->mobjects.reserve(MOBJECT_COUNT_PER_SCENE_PROBABLY);
   
-  if(renderer == nullptr) return;
-  renderer->make_current();
-  this->canvas = renderer->get_canvas();
+  if(presenter == nullptr) return;
+  presenter->make_current();
+  this->canvas = presenter->get_canvas();
 
 }
 
@@ -41,17 +41,17 @@ void Scene::render_frame() const {
     this->canvas->drawPath(path, paint);
   }
 
-  this->renderer->present();
+  this->presenter->present();
   return;
 }
 
-void Scene::set_renderer(DriverInterface *renderer) {
-  if (renderer == nullptr) 
+void Scene::set_presenter(PresenterInterface *presenter) {
+  if (presenter == nullptr) 
     return;
 
-  renderer->make_current();
-  this->canvas = renderer->get_canvas();
-  this->renderer = renderer;
+  presenter->make_current();
+  this->canvas = presenter->get_canvas();
+  this->presenter = presenter;
   return;
 }
 
@@ -82,8 +82,8 @@ void Scene::play(Animation &animation) {
 }
 
 
-void Scene::idle() const {
-  this->renderer->idle();
+void Scene::idle(float duration, bool *running) const {
+  this->presenter->idle(duration, running);
   return;
 };
 

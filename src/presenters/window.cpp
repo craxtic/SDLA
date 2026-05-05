@@ -12,6 +12,8 @@
  */
 
 
+#include "axim/config.h"
+#include <SDL3/SDL_keycode.h>
 #include <SDL3pp/SDL3pp_events.h>
 #include <SDL3pp/SDL3pp_pixels.h>
 #include <SDL3pp/SDL3pp_init.h>
@@ -31,16 +33,17 @@
 #include <include/gpu/ganesh/gl/GrGLInterface.h>
 
 
-#include <axim/drivers/window.h>
+#include <axim/presenters/window.h>
 #include <axim/core/types/color.h>
 #include <axim/utils/errors.h>
+#include <unistd.h>
 
 // #include <iostream>
 
 namespace axm {
 
   
-PreviewDriver::PreviewDriver(){
+PreviewPresenter::PreviewPresenter(){
 
   SDL::Init(SDL::INIT_VIDEO);
   SDL::GL_SetAttribute(SDL::GL_DOUBLEBUFFER, 1);
@@ -66,14 +69,14 @@ PreviewDriver::PreviewDriver(){
   return;
 }
 
-void PreviewDriver::make_current() {
+void PreviewPresenter::make_current() {
 
   SDL::GL_MakeCurrent(this->window, this->gl_context);  
 };
 
 
 
-SkCanvas *PreviewDriver::get_canvas(){
+SkCanvas *PreviewPresenter::get_canvas(){
   SDL::GL_SwapWindow(window);
   SDL::PumpEvents();
   auto [width, height] = SDL::GetWindowSizeInPixels(window);
@@ -83,19 +86,19 @@ SkCanvas *PreviewDriver::get_canvas(){
   return this->surface->getCanvas();
 }
 
-void PreviewDriver::present() const {
+void PreviewPresenter::present() const {
   this->context->flush();
   SDL::GL_SwapWindow(window);
 }
   
-PreviewDriver::~PreviewDriver() {
+PreviewPresenter::~PreviewPresenter() {
   if (surface) surface->unref();
   context->unref();
   gl_context.Destroy();
   window.Destroy();  
 }
   
-sk_sp<SkSurface>  PreviewDriver::_create_sk_surface(int w, int h){
+sk_sp<SkSurface>  PreviewPresenter::_create_sk_surface(int w, int h){
 
   GrGLFramebufferInfo gl_info = {0, 0x8058};
   GrBackendRenderTarget backend_rt = GrBackendRenderTargets::MakeGL(w, h, 0, 8, gl_info);
@@ -116,13 +119,24 @@ sk_sp<SkSurface>  PreviewDriver::_create_sk_surface(int w, int h){
 
 
 /// TODO: handle the event with a proper window id
-void PreviewDriver::idle() const {
-  bool running = true;
-  while(running){
-    while(auto ev = SDL::PollEvent()){
-      if(ev->type == SDL::EVENT_QUIT) { running = false;}
+void PreviewPresenter::idle(int duration, bool *running) const {
+
+  
+  while(true){
+
+    auto event = SDL::WaitEvent();
+    
+    switch (event.type) {
+      
+      case SDL::EVENT_QUIT: if(running) *running = false; return;
+      case SDL::EVENT_KEY_DOWN:
+        if(event.key.key == SDLK_R) return;
+      break;
     }
+  
   }
+      
+
   return;
 }
 
