@@ -29,8 +29,7 @@ VMobject::VMobject(Color fill_color) : Mobject(fill_color) {}
   if (this->get_pocount() == 0)
     return builder.detach();
 
-  vec3f point = (*this)[0];
-  builder.moveTo({point.x, point.y});
+  builder.moveTo({(*this)[0].x, (*this)[0].y});
 
   for (int i = 1; i < this->get_pocount(); i++) {
     vec3f p = (*this)[i];

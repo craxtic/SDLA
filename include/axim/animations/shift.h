@@ -18,7 +18,7 @@
 
 namespace axm {
 
-class AXIM_API Shift : public Animation {
+class AXIM_ENGINE_API Shift : public Animation {
   vec2f delta;
 
 public:

@@ -33,15 +33,36 @@
 #endif
 
 
-#if defined (AXIM_API_EXPORTS)
+#if defined (AXIM_ENGINE_EXPORTS)
 
-#define AXIM_API AXIM_API_EXPORT
+#define AXIM_ENGINE_API AXIM_API_EXPORT
 
 #else
 
-#define AXIM_API AXIM_API_IMPORT
+#define AXIM_ENGINE_API AXIM_API_IMPORT
 
 #endif
+
+#if defined (AXIM_PRESENTER_EXPORTS)
+
+#define AXIM_PRESENTER_API AXIM_API_EXPORT
+
+#else
+
+#define AXIM_PRESENTER_API AXIM_API_IMPORT
+
+#endif
+
+#if defined (AXIM_LUA_EXPORTS)
+
+#define AXIM_LUA_API AXIM_API_EXPORT
+
+#else
+
+#define AXIM_LUA_API AXIM_API_IMPORT
+
+#endif
+
 
 
 #define MOBJECT_COUNT_PER_SCENE_PROBABLY 100

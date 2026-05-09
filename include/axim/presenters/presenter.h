@@ -19,7 +19,7 @@
 
 namespace axm {
 
-class AXIM_API PresenterInterface {
+class AXIM_PRESENTER_API PresenterInterface {
 
 public:
   virtual ~PresenterInterface() = default;

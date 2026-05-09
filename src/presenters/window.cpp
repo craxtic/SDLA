@@ -33,6 +33,9 @@
 #include <axim/core/types/color.h>
 #include <axim/utils/errors.h>
 
+#include <SFML/Config.hpp>
+
+
 // #include <iostream>
 
 namespace axm {

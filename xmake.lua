@@ -1,11 +1,12 @@
 add_rules("mode.debug", "mode.release")
 set_languages("c++23")
 
-add_requires("skia")
+
+add_requires("skia", {system = true})
 add_requires("libsdl3")
-add_requires("ffmpeg")
-add_requires("lua5.4")
+add_requires("lua5.4", {system = true})
 add_requires("sol2")
+add_requires("ffmpeg", {configs = {binaryonly = true}})
 
 
 --- for development
@@ -18,8 +19,8 @@ set_policy("build.warning", true)
 --- the rendering engine
 target("axim-engine") do
   set_kind("shared")
-  add_cxflags("-fvisibility=hidden")
-  add_defines("AXIM_API_EXPORTS")
+  set_symbols("hidden")
+  add_defines("AXIM_ENGINE_EXPORTS")
   add_files("src/animations/**.cpp")
   add_files("src/mobjects/**.cpp")
   add_files("src/scene/**.cpp")
@@ -34,11 +35,11 @@ end
 --- either preview, export, or integrate into an external enviroment
 target("axim-presenters") do
   set_kind("shared")
-  add_cxflags("-fvisibility=hidden")
-  add_defines("AXIM_API_EXPORTS")
+  set_symbols("hidden")
+  add_defines("AXIM_PRESENTER_EXPORTS")
   add_files("src/presenters/**.cpp")
   
-  add_packages("libsdl3")
+  add_packages("libsdl3", "skia")
 end
 
 
@@ -47,10 +48,11 @@ end
 --- axim bindings to lua script 
 target("axim-lua") do
   set_kind("shared")
-  add_cxflags("-fvisibility=hidden")
-  add_defines("AXIM_API_EXPORTS")
+  set_symbols("hidden")
+  add_defines("AXIM_LUA_EXPORTS")
   add_files("src/bindings/**.cpp")
 
+  add_deps("axim-engine", "axim-presenters")
   add_packages("sol2", "lua5.4")
 end
 

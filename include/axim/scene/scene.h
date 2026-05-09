@@ -29,7 +29,7 @@ namespace axm {
 
 // enum class RenderMode { Preview, Export };
 
-class AXIM_API Scene final {
+class AXIM_ENGINE_API Scene final {
 
   PresenterInterface *presenter;
   SkCanvas *canvas;

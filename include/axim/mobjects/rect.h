@@ -13,13 +13,12 @@
 
 #pragma once
 
-#include "log.hpp"
 #include <axim/core/types/vector2.h>
 #include <axim/mobjects/vmobject.h>
 
 namespace axm {
 
-class AXIM_API Rect : public VMobject {
+class AXIM_ENGINE_API Rect : public VMobject {
 
 public:
   Rect() = default;

@@ -23,7 +23,7 @@
 namespace axm {
 
 
-class AXIM_API ExportPresenter : public PresenterInterface {
+class AXIM_PRESENTER_API ExportPresenter : public PresenterInterface {
 
   sk_sp<SkSurface> surface;
   FILE* ffmpeg;

@@ -22,9 +22,9 @@
 
 namespace axm::lua {
 
-void AXIM_API bind_maths_types(sol::state_view state);
-void AXIM_API bind_mobject_types(sol::state_view state);
-void AXIM_API bind_scene_funcs(sol::state_view state, Scene &scene);
+void AXIM_LUA_API bind_maths_types(sol::state_view state);
+void AXIM_LUA_API bind_mobject_types(sol::state_view state);
+void AXIM_LUA_API bind_scene_funcs(sol::state_view state, Scene &scene);
 
 
 }

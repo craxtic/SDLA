@@ -17,7 +17,7 @@
 
 namespace axm {
 
-class AXIM_API VMobject : public Mobject {
+class AXIM_ENGINE_API VMobject : public Mobject {
 
 public:
   VMobject() = default;

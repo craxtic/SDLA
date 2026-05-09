@@ -1,0 +1,49 @@
+vars: {
+  d2-config: {
+    layout-engine: elk
+  }
+}
+
+skia: { 
+
+  Skia -> rgba frame : "renders" 
+  rgba frame:  {
+    style: {
+      border-radius: 6
+      stroke-dash: 2
+    }
+  }
+}
+
+Backend: {
+    
+  axim-engine: {
+    
+  Scene -> Animation : "plays"
+  Scene -> Mobject : "adds"
+  
+  Animation -> Mobject : "orchestrates"
+
+  }
+
+
+
+
+  axim-presenters: {
+
+    Presenters -> SDL3
+    Presenters -> Others
+    Presenters -> FFmpeg
+    Others: {
+      style: {
+        stroke-dash: 5
+      }
+    }
+    
+    SDL3 -> Preivew Window : "creates"
+    FFmpeg -> Output Video : "exports"
+    
+  }
+
+
+}

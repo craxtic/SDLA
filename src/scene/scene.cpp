@@ -17,6 +17,7 @@
 #include <axim/scene/scene.h>
 #include <axim/utils/errors.h>
 
+#include <iostream>
 
 namespace axm {
 
@@ -36,11 +37,9 @@ void Scene::render_frame() const {
   this->canvas->clear(this->bg_color);
   
   for (const Mobject *mobject : this->mobjects) {
-    SkPath path = mobject->get_path();
-    SkPaint paint = mobject->get_paint();
-    this->canvas->drawPath(path, paint);
+    this->canvas->drawPath(mobject->get_path(), mobject->get_paint());
   }
-
+  
   this->presenter->present();
   return;
 }

@@ -23,7 +23,7 @@
 namespace axm {
 
   
-class AXIM_API PreviewPresenter : public PresenterInterface {
+class AXIM_PRESENTER_API PreviewPresenter : public PresenterInterface {
   SDL_Window *window;
   sk_sp<SkSurface> surface;
   sk_sp<GrDirectContext> context;

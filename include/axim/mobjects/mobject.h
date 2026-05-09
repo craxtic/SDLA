@@ -27,7 +27,7 @@
 namespace axm {
 
 /// Mathematical Object Class
-class AXIM_API Mobject {
+class AXIM_ENGINE_API Mobject {
 
 protected:
   u32 poindex;
