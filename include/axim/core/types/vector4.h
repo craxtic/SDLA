@@ -20,7 +20,7 @@ namespace axm {
 template <typename T> struct vec<4, T> {
 
   union {
-    T data[4]{};
+    T data[4];
     struct {
       T x, y, z, w;
     };

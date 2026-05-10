@@ -1,16 +1,17 @@
 add_rules("mode.debug", "mode.release")
 set_languages("c++23")
 
-
-add_requires("skia", {system = true})
+add_requires("skia", {system = true}) -- require to manually install
 add_requires("libsdl3")
-add_requires("lua5.4", {system = true})
+add_requires("luajit")
 add_requires("sol2")
 add_requires("ffmpeg", {configs = {binaryonly = true}})
+add_requires("catch2") 
+
 
 
 --- for development
-add_includedirs("include") ---
+add_includedirs("$(projectdir)/include") ---
 set_warnings("allextra")
 set_policy("build.warning", true)
 
@@ -53,17 +54,17 @@ target("axim-lua") do
   add_files("src/bindings/**.cpp")
 
   add_deps("axim-engine", "axim-presenters")
-  add_packages("sol2", "lua5.4")
+  add_packages("skia", "sol2", "luajit")
 end
 
 
 
 --- @header-files
 --- for installation
-target("axim-headers") do 
-  set_kind("headeronly")
-  add_headerfiles("include/(**.h)") 
-end
+-- target("axim-headers") do 
+--   set_kind("headeronly")
+--   add_headerfiles("include/(**.h)") 
+-- end
 
 
 --- @axim-app
@@ -74,9 +75,60 @@ target("axim") do
   add_deps("axim-engine")
   add_deps("axim-presenters")
   add_deps("axim-lua")
-  set_targetdir("$(projectdir)/app")
+  -- set_targetdir("$(projectdir)/app")
   
-  add_packages("lua5.4", "sol2")
+  add_packages("skia", "libsdl3", "sol2", "luajit")
+end
+
+
+
+
+--- @axim-test
+--- compile every test files, run and write to test/reports/name.xml
+for _, file in ipairs(os.files("test/src/**.cxx")) do
+  local name = path.basename(file)
+
+  target(name) do
+    set_kind("binary")
+    set_default(false)
+    add_files(file)
+    add_packages("catch2")
+    
+    before_test(function () 
+      os.mkdir("test/reports")
+    end)
+
+    add_tests("test", {
+      runargs = {
+        "-r", "xml", 
+        "-o", path.join(os.projectdir(), "test", "reports", name .. ".xml")
+      }
+    })
+    
+  end
+end
+
+
+
+--- @axim-report
+--- parse the test/reports/*.xml and report test results
+task("report") do
+  on_run(function ()
+    local paths = path.join(os.projectdir(), "test", "reports", "*.xml")
+    for _, file in ipairs(os.files(paths)) do
+      -- print("FILE: " .. file)
+      os.execv("lua", {"test/output-reports.lua", file})
+      
+    end
+  end)
+
+  set_menu {
+    usage = "xmake report [options]",
+    description = "View full test results.",
+    options = {
+
+    }
+  }
 end
 
 

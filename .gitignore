@@ -1,5 +1,7 @@
+.vscode
 build/
 .xmake/
 tmp/
 learn.cpp
 learn
+test/reports/*

@@ -22,7 +22,7 @@ template <typename T> struct vec<2, T> {
   union {
     T data[2];
     struct {
-      T x{}, y{};
+      T x, y;
     };
   };
   

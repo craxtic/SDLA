@@ -27,7 +27,7 @@ namespace axm {
 struct Color {
 
   union {
-    u8 data[4]{};
+    u8 data[4];
     struct {
       u8 r, g, b, a;
     };
