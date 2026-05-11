@@ -14,24 +14,24 @@
 #pragma once
 
 
-#include <axim/config.h>
-#include <axim/utils/utils.h>
 #include <axim/core/types/ctype.h>
 
 #include <ostream>
 #include <include/core/SkColor.h>
+
 
 namespace axm {
 
 // template <typename T>
 struct Color {
 
-  union {
-    u8 data[4];
-    struct {
-      u8 r, g, b, a;
-    };
-  };
+  u8 r{0}, g{0}, b{0}, a{255};
+  // union {
+  //   u8 data[4];
+  //   struct {
+  //     u8 r, g, b, a;
+  //   };
+  // };
 
 
   constexpr Color() = default;
@@ -41,8 +41,8 @@ struct Color {
   constexpr explicit Color(u32 hex);
 
 
-  [[nodiscard]] constexpr u8 &operator[](int i) { return data[i]; }
-  [[nodiscard]] constexpr const u8 &operator[](int i) const { return data[i]; }
+  // [[nodiscard]] constexpr u8 &operator[](int i) { return data[i]; }
+  // [[nodiscard]] constexpr const u8 &operator[](int i) const { return data[i]; }
 
 
   // skia mapping
@@ -61,7 +61,6 @@ struct Color {
   static const Color Cyan;        // Cyan predefined color
   static const Color Transparent; // Transparent (black) predefined color
   
-
 };
 
 
@@ -69,125 +68,102 @@ struct Color {
 
 
 
-constexpr Color::Color(u8 r, u8 g, u8 b, u8 a){
-  data[0] = r;
-  data[1] = g;
-  data[2] = b;
-  data[3] = a;
+constexpr Color::Color(u8 r, u8 g, u8 b, u8 a):
+r(r), g(g), b(b), a(a)
+{}
+
+constexpr Color::Color(u32 hex):
+  r(static_cast<u8>((hex & 0xff000000) >> 24)),
+  g(static_cast<u8>((hex & 0x00ff0000) >> 16)),
+  b(static_cast<u8>((hex & 0x0000ff00) >> 8 )),
+  a(static_cast<u8>((hex & 0x000000ff) >> 0))
+{}
+
+
+
+
+/* Color() + Color() */
+[[nodiscard]] constexpr Color operator+(const Color &x, const Color &y) {
+
+  const auto clamped_add = [](u8 a, u8 b){
+    const int result = int{a} + int{b};
+    return static_cast<u8>(result < 255 ? result : 255);
+  };
+
+  return Color(
+    clamped_add(x.r, y.r),
+    clamped_add(x.g, y.g),
+    clamped_add(x.b, y.b),
+    clamped_add(x.a, y.a)
+  );
 }
 
-constexpr  Color::Color(u32 hex){
-  data[0] = static_cast<u8>((hex & 0xff000000) >> 24);
-  data[1] = static_cast<u8>((hex & 0x00ff0000) >> 16);
-  data[2] = static_cast<u8>((hex & 0x0000ff00) >> 8 );
-  data[3] = static_cast<u8>((hex & 0x000000ff) >> 0); 
+/* Color() - Color() */
+[[nodiscard]] constexpr Color operator-(const Color &x, const Color &y) {
+  
+  const auto clamped_substract = [](u8 a, u8 b){
+    const int result = int{a} - int{b};
+    return static_cast<u8>(result > 0 ? result : 0);
+  };
+
+  return Color(
+    clamped_substract(x.r, y.r),
+    clamped_substract(x.g, y.g),
+    clamped_substract(x.b, y.b),
+    clamped_substract(x.a, y.a)
+  );
 }
 
-
-
-
-/// v() + u()
-[[nodiscard]] constexpr Color operator+(const Color &v, const Color &u) {
-  Color w;
-  static_loop_unroll<4>([&](auto i){
-    int result = int{v[i]} + int{u[i]};
-    w[i] = static_cast<u8>(result < 255 ? result : 255); 
-  });
+/* Color() * Color() */
+[[nodiscard]] constexpr Color operator*(const Color &x, const Color &y) {
+  
+  const auto scaled_multiply = [](u8 a, u8 b){
+    const auto result = static_cast<u8>(u16{a} * u16{b});
+    return static_cast<std::uint8_t>(result / 255u);
+  };
  
-  return w;
+  return Color(
+    scaled_multiply(x.r, y.r),
+    scaled_multiply(x.g, y.g),
+    scaled_multiply(x.b, y.b),
+    scaled_multiply(x.a, y.a)
+  );
 }
 
-/// v() - u()
-[[nodiscard]] constexpr Color operator-(const Color &v, const Color &u) {
-  Color w;
-  static_loop_unroll<4>([&](auto i){
-    int result = int{v[i]} - int{u[i]};
-    w[i] = static_cast<u8>(result > 0 ? result : 0);
-  });
-  return w;
+/* Color() == Color() */
+[[nodiscard]] constexpr bool operator==(const Color &x, const Color &y) {
+  return (x.r == y.r) && (x.g == y.g) && (x.b == y.b) && (x.a == y.a);  
 }
 
-/// v() * k
-[[nodiscard]] constexpr Color operator*(const Color &v, u8 k) {
-  Color w;
-  static_loop_unroll<4>([&](auto i){
-    int result = int{v[i]} * k;
-    w[i] = static_cast<u8>(result < 255 ? result : 255);
-  });
-  return w;
+/* Color() != Color() */
+[[nodiscard]] constexpr bool operator!=(const Color &x, const Color &y) {  
+  return !(x == y); 
 }
 
-/// k * v()
-[[nodiscard]] constexpr Color operator*(u8 k, const Color &v) {
-  Color w;
-  static_loop_unroll<4>([&](auto i){
-    int result = int{v[i]} * k;
-    w[i] = static_cast<u8>(result < 255 ? result : 255);
-  });
-  return w;
+/* Color() += Color() */
+constexpr Color& operator+=(Color &x, const Color &y) {
+  return x = x + y;
 }
 
-// / scalar multiplication * 
-constexpr Color operator*(const Color v, const Color u){
-  Color w;
-  static_loop_unroll<4>([&](auto i){
-    int result = v[i] * u[i];
-    w[i] = static_cast<u8>(result < 255 ? result : 255); 
-  });
-  return w;
+/* Color() -= Color() */
+constexpr Color& operator-=(Color &x, const Color &y) {
+  return x = x - y;
 }
 
-/// v() / k
-[[nodiscard]] constexpr Color operator/(const Color &v, u8 k) {
-  Color w;
-  static_loop_unroll<4>([&](auto i){
-    int result = int{v[i]} / k;
-    w[i] = static_cast<u8>(result < 255 ? result : 255);
-  });
-  return w;
-}
-
-/// v() == u()
-[[nodiscard]] constexpr bool operator==(const Color &v, const Color &u) {
-  return (v.r == u.r) && (v.g == u.g) && (v.b == u.b) && (v.a == u.a);  
-}
-
-/// v() != u()
-[[nodiscard]] constexpr bool operator!=(const Color &v, const Color &u) {  
-  return !(v == u); 
-}
-
-/// v() += u()
-constexpr Color& operator+=(Color &v, const Color &u) {
-  static_loop_unroll<4>([&](auto i){
-    int result = int{v[i]} + int{u[i]};
-    v[i] = static_cast<u8>(result < 255 ? result : 255);
-  });  
-  return v;
-}
-
-/// v() -= u()
-constexpr Color& operator-=(Color &v, const Color &u) {
-  static_loop_unroll<4>([&](auto i){
-    int result = int{v[i]} - int{u[i]};
-    v[i] = static_cast<u8>(result > 0 ? result : 0);
-  });
-  return v;
+/* Color() *= Color() */
+constexpr Color& operator*=(Color &x, const Color &y) {
+  return x = x * y;
 }
 
 
 
-/// format into "(a, b, c, ...)"
-inline std::ostream& operator<<(std::ostream &stream, const Color &v){
-  stream << "Color(";
-  static_loop_unroll<3>([&](auto i){
-    stream << +v[i] << ',';
-  });
-  return stream << +v[3] <<')';
+/* format into "(r,g,b,a)" */
+inline std::ostream& operator<<(std::ostream &stream, const Color &c){
+  return stream << '(' << c.r << ',' << c.g << ',' << c.b << ',' << c.a << ')';
 }
 
 
- 
+
 inline constexpr Color Color::Black(0, 0, 0);
 inline constexpr Color Color::White(255, 255, 255);
 inline constexpr Color Color::Red(255, 0, 0);
