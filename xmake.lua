@@ -126,7 +126,7 @@ task("report") do
     usage = "xmake report [options]",
     description = "View full test results.",
     options = {
-
+      "-c", 
     }
   }
 end

@@ -13,32 +13,26 @@
 
 #pragma once
 
-#include <axim/core/types/vector.h>
+#include <ostream>
+#include <cmath>
 
 namespace axm {
 
-template <typename T> struct vec<2, T> {
+template <typename T> struct vec2 {
 
-  union {
-    T data[2];
-    struct {
-      T x, y;
-    };
-  };
+  T x{0}, y{0};
+
   
-  constexpr vec() = default;
+  constexpr vec2() = default;
   
-  constexpr vec(T x, T y){
-    this->x = x;
-    this->y = y;
-  }
+  constexpr vec2(T x, T y): x(x), y(y) {}
 
-  /// vec[i]
-  [[nodiscard]] constexpr T& operator[](int i) { return data[i]; }
-  [[nodiscard]] constexpr const T& operator[](int i) const { return data[i]; }
+  // /// vec[i]
+  // [[nodiscard]] constexpr T& operator[](int i) { return data[i]; }
+  // [[nodiscard]] constexpr const T& operator[](int i) const { return data[i]; }
 
 
-  /// \brief norm of vector |v|
+  /* \brief norm of vector |v| */
   [[nodiscard]] constexpr T norm() const {
     return sqrt(x * x + y * y);
   }
@@ -51,24 +45,118 @@ template <typename T> struct vec<2, T> {
 
 
   /// return a normal (perpendicular) vector of this*
-  [[nodiscard]] constexpr vec<2, T> normal() const{
-    return vec<2, T>(-y, x);
+  [[nodiscard]] constexpr vec2 normal() const{
+    return vec2(-y, x);
   }
 
   /// return a unit vector of this*
-  [[nodiscard]] constexpr vec<2, T> unit() const{
+  [[nodiscard]] constexpr vec2 unit() const{
     T norm = this->norm();
-    return  vec<2, T>(x/norm, y/norm);
+    return  vec2(x/norm, y/norm);
   }
 
 };
 
 
+/* nagate each component of the vector*/
+template <typename T>
+[[nodiscard]] constexpr vec2<T> operator-(const vec2<T> &v) {
+  return vec2<T>(-v.x, -v.y);
+}
 
-template<typename T> using vec2 = vec<2, T>; 
+
+/* add two vectors, and return a new instance*/
+template <typename T>
+[[nodiscard]] constexpr vec2<T> operator+(const vec2<T> &a, const vec2<T> b) {
+  return vec2<T>(a.x + b.x, a.y + b.y);
+}
+
+
+/* substract two vectors, and return a new instance*/
+template <typename T>
+[[nodiscard]] constexpr vec2<T> operator-(const vec2<T> &a, const vec2<T> b) {
+  return vec2<T>(a.x - b.x, a.y - b.y);
+}
+
+/* multiply a vector with a constant, and return a new vector*/
+template <typename T>
+[[nodiscard]] constexpr vec2<T> operator*(const vec2<T> &a, const T k) {
+  return vec2<T>(a.x * k, a.y * k);
+}
+
+
+/* multiply a constant with a vector, and return a new vector*/
+template <typename T>
+[[nodiscard]] constexpr vec2<T> operator*(const T k, const vec2<T> &a) {
+  return vec2<T>(k * a.x, k * a.y);
+}
+
+
+/* divide a vector by a constant, and return a new vector*/
+template <typename T>
+[[nodiscard]] constexpr vec2<T> operator/(const vec2<T> &a, const T k) {
+  return vec2<T>(a.x / k, a.y / k);
+}
+
+
+/* dot product of two vector */
+template <typename T>
+[[nodiscard]] constexpr T operator*(const vec2<T> &a, const vec2<T> &b) {
+  return (a.x * b.x) + (a.y * b.y);
+}
+
+
+/* return true if two vectors are equal */
+template <typename T>
+[[nodiscard]] constexpr bool operator==(const vec2<T> &a, const vec2<T> &b) {
+  return (a.x == b.x) && (a.y == b.y);
+}
+
+
+/* return true if two vectors are not equal */
+template <typename T>
+[[nodiscard]] constexpr bool operator!=(const vec2<T> &a, const vec2<T> &b) {
+  return !(a == b);
+}
+
+
+/* add a new vector to itself */
+template <typename T>
+constexpr vec2<T> operator+=(vec2<T> &a, const vec2<T> &b){
+  return a = a + b;
+}
+
+
+/* subtract a new vector from itself */
+template <typename T>
+constexpr vec2<T> operator-=(vec2<T> &a, const vec2<T> &b){
+  return a = a - b;
+}
+
+
+/* multiply itself with a constant */
+template <typename T>
+constexpr vec2<T> operator*=(vec2<T> &a, const T k){
+  return a = a * k;
+}
+
+
+/* divide itself by a constant */
+template <typename T>
+constexpr vec2<T> operator/=(vec2<T> &a, const T k){
+  return a = a / k;
+}
+
+
+template <typename T>
+constexpr std::ostream& operator<<(std::ostream &stream, const vec2<T> &a){
+  return stream << '(' << a.x << ',' << a.y << ')';
+}
+
+
+/* pre-defined vec2 with some primitive types. */
 using vec2i = vec2<int>;
 using vec2u = vec2<unsigned int>;
 using vec2f = vec2<float>;
-
 
 } 

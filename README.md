@@ -30,10 +30,14 @@ To provide a high-performance, programmable motion graphics framework that unite
 * **Live Preview**: Tweak your Lua scripts and see your logic "dance" update instantly via the SDL3 window.
 * **Programmatic Precision**: Every frame is backed by a rigorous C++ math core, ensuring perfect reproducibility.
 * **Headless Export**: Seamlessly transition from a live window to a finished video file via FFmpeg.
+* **Embeddable**: Axim provide an interface called `PresenterInterface` which can be used to custom your own presenter (an output target) in many applications. This interface is, by default, implemented by `PreviewPresenter`, which is the preview window (SDL3) and `ExportPresenter`, which is the export class (ffmpeg).
 
-### Notice
-Axim is currently in its early stage of development, so it's not yet considered to be ready
-for production use.
+> Axim is currently in its early stage of development, so it's not yet considered to be ready for production use.
+
+### The actual purpose
+Hi everyone, and hope you're doing well, **Axim** is not originally created to be a production grade animation engine.
+My purpose was just to learn new things, especially explore graphic programming as a way to turn the maths I studied into art. I consider this as a really great opportunity as well as an interesting adventure for me as a computer science student. The true value of learning lies in the adventure, doesn't it? Then I have a reason to not give up, at least not now :]  
+This project was inspired by **Manim**, one of the best math animation engine, while my **Axim** is just a beginner's playground, i still have a very very long way to go. 
 
 
 ###  License
