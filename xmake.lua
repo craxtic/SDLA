@@ -4,7 +4,7 @@ set_languages("c++23")
 add_requires("skia", {system = true}) -- require to manually install
 add_requires("libsdl3")
 add_requires("luajit")
-add_requires("sol2")
+-- add_requires("sol2")
 add_requires("ffmpeg", {configs = {binaryonly = true}})
 add_requires("catch2") 
 
@@ -51,10 +51,10 @@ target("axim-lua") do
   set_kind("shared")
   set_symbols("hidden")
   add_defines("AXIM_LUA_EXPORTS")
-  add_files("src/bindings/**.cpp")
+  add_files("src/bindings/**.cc")
 
   add_deps("axim-engine", "axim-presenters")
-  add_packages("skia", "sol2", "luajit")
+  add_packages("skia")
 end
 
 
@@ -77,7 +77,7 @@ target("axim") do
   add_deps("axim-lua")
   -- set_targetdir("$(projectdir)/app")
   
-  add_packages("skia", "libsdl3", "sol2", "luajit")
+  add_packages("skia", "libsdl3", "luajit")
 end
 
 

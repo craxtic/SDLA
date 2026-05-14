@@ -11,18 +11,5 @@
  * file, You can obtain one at https://mozilla.org.
  */
 
-#include <axim/bindings/bindings.h>
-#include <sol/state_view.hpp>
-// #include <sol/sol.hpp>
+#include <axim/bindings/vectors.hh>
 
-namespace axm {
-
-void lua::bind_scene_funcs(sol::state_view state, Scene &scene){
-
-  state.set_function("add", [&](axm::Mobject &mob) { scene.add(mob); });
-
-}
-
-
-
-}

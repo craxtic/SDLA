@@ -13,18 +13,13 @@
 
 #pragma once
 
-#define SOL_ALL_SAFETIES_ON 1
-#define SOL_TYPE_CHECK_INVARIANT_ID 1
 #include <axim/config.h>
-#include <axim/scene/scene.h>
+#include <axim/core/types/vector2.h>
+#include <axim/core/types/vector3.h>
 
-#include <sol/forward.hpp>
+extern "C" {
 
-namespace axm::lua {
-
-void AXIM_LUA_API bind_maths_types(sol::state_view state);
-void AXIM_LUA_API bind_mobject_types(sol::state_view state);
-void AXIM_LUA_API bind_scene_funcs(sol::state_view state, Scene &scene);
+// AXIM_LUA_API 
 
 
 }

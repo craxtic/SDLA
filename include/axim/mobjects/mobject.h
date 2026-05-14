@@ -29,11 +29,6 @@ namespace axm {
 /// Mathematical Object Class
 class AXIM_ENGINE_API Mobject {
 
-protected:
-  u32 poindex;
-  u16 pocount;
-  u16 paindex;
-
 
 public:
   float z_index;
@@ -77,6 +72,10 @@ public:
   }
 
 protected:
+  u32 poindex;
+  u16 pocount;
+  u16 paindex;
+
   /// push a new point to the cloud
   /// this should be called in constructor of any Mobject
   inline constexpr void push_point(vec3f point) { cloud->push_point(point); }
@@ -86,5 +85,7 @@ protected:
     this->pocount = pocount;
   }
 };
+
+
 
 } // namespace axm

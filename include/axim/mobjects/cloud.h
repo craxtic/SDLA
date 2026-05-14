@@ -20,6 +20,7 @@
 #include <include/core/SkPaint.h>
 
 #include <axim/core/types/vector3.h>
+#include <axim/core/types/ctype.h>
 
 namespace axm {
 
