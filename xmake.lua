@@ -16,6 +16,15 @@ set_warnings("allextra")
 set_policy("build.warning", true)
 
 
+--- @axim-core
+--- 
+target("axim-core") do 
+  set_kind("shared")
+  set_symbols("hidden")
+  add_defines("AXIM_CORE_EXPORTS")
+  add_files("src/core/**.cpp")
+end
+
 --- @axim-engine
 --- the rendering engine
 target("axim-engine") do
@@ -53,7 +62,7 @@ target("axim-lua") do
   add_defines("AXIM_LUA_EXPORTS")
   add_files("src/bindings/**.cc")
 
-  add_deps("axim-engine", "axim-presenters")
+  add_deps("axim-core", "axim-engine", "axim-presenters")
   add_packages("skia")
 end
 

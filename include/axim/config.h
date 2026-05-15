@@ -16,9 +16,8 @@
 
 #define AXIM_VERSION_MAJOR 0
 #define AXIM_VERSION_MINOR 0
-#define AXIM_VERSION_PATCH 0
+#define AXIM_VERSION_PATCH 1
 
-// #include <SFML/Config.hpp>
 
 #if defined (_WIN32)
 
@@ -33,6 +32,18 @@
 #endif
 
 
+#if defined (AXIM_CORE_EXPORTS)
+
+#define AXIM_CORE_API AXIM_API_EXPORT
+
+#else
+
+#define AXIM_CORE_API AXIM_API_IMPORT
+
+#endif
+
+
+
 #if defined (AXIM_ENGINE_EXPORTS)
 
 #define AXIM_ENGINE_API AXIM_API_EXPORT
@@ -43,6 +54,8 @@
 
 #endif
 
+
+
 #if defined (AXIM_PRESENTER_EXPORTS)
 
 #define AXIM_PRESENTER_API AXIM_API_EXPORT
@@ -52,6 +65,8 @@
 #define AXIM_PRESENTER_API AXIM_API_IMPORT
 
 #endif
+
+
 
 #if defined (AXIM_LUA_EXPORTS)
 

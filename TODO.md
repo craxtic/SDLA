@@ -1,8 +1,9 @@
 # Tasks
 
-- [ ] refine `README.md`
+- [x] refine `README.md`
 
 ---
+- [ ] write an xml parser for lua
 - [ ] write lua script to only output failed test cases followed by expression.
 - [ ] write lua script to only output the benchmarkk test cases
 - [ ] find a way to keep track of resource usage
@@ -12,5 +13,10 @@
   3. copy count
   4. size of skiaCacheBytes
   5. ...
-- [ ] implement arena allocation
+- [x] implement arena allocation `axim/core/allocator`
+- [x] impelment block (linked-list of allocator) `axim/core/cloud`
 
+
+## lua bindings
+- [ ] bind `Mobject`, `VMobject`, `Rect`
+- [ ] bind `Shift` animation
