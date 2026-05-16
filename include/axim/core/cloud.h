@@ -15,6 +15,8 @@
 
 #include "axim/config.h"
 #include <axim/core/allocator.h>
+#include <new>
+#include <utility>
 
 namespace axm {
 
@@ -36,6 +38,14 @@ public:
     return reinterpret_cast<T*>(allocate(sizeof(T) * count, alignof(T)));
   }
   
+  template<typename T, typename...Args>
+  inline T* construct(Args&&...args){
+    T* memory = allocate<T>(1);
+    return new(memory) T(std::forward<Args>(args)...);
+  } 
+
+
+
 };
 
 

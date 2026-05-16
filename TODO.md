@@ -18,5 +18,6 @@
 
 
 ## lua bindings
-- [ ] bind `Mobject`, `VMobject`, `Rect`
+- [x] move from `sol2` to `luajit ffi`
+- [x] bind `Mobject`, `VMobject`, `Rect`
 - [ ] bind `Shift` animation

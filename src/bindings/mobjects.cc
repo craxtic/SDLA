@@ -11,14 +11,10 @@
  * file, You can obtain one at https://mozilla.org.
  */
 
-#pragma once
+#include "axim/mobjects/rect.h"
+#include <axim/bindings/binding.hh>
+#include <axim/bindings/mobjects.hh>
 
-#include <axim/config.h>
-#include <axim/core/types/vector2.h>
-#include <axim/core/types/vector3.h>
-#include <axim/core/types/color.h>
-#include <axim/mobjects/mobject.h>
-#include <axim/mobjects/vmobject.h>
-#include <axim/mobjects/rect.h>
-#include <axim/scene/scene.h>
-#include <axim/animations/animation.h>
+Mobject* axm_Rect(vec2f a, vec2f b){
+  return luacloud->construct<Rect>(a, b);
+}

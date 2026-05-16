@@ -84,9 +84,10 @@ target("axim") do
   add_deps("axim-engine")
   add_deps("axim-presenters")
   add_deps("axim-lua")
-  -- set_targetdir("$(projectdir)/app")
-  
+  add_ldflags("-rdynamic", {force = true})
   add_packages("skia", "libsdl3", "luajit")
+
+  add_defines('AXIM_LUA_DIR="$(projectdir)/lua"')
 end
 
 
