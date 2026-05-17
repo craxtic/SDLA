@@ -13,9 +13,9 @@
 
 #include <axim/core/cloud.h>
 
-namespace axm {
+namespace axm::lua {
 
-  Cloud* luacloud = new Cloud(8192 );
+  Cloud* cloud = new Cloud(8192 );
 
 }
   

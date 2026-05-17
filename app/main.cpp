@@ -18,6 +18,7 @@
 
 #include "app.hpp"
 
+#include <iostream>
 
 using namespace axm;
 
@@ -58,6 +59,7 @@ int main(int argc, char *argv[]) {
   while(previewing){
     
     std::cout << "reload" << std::endl;
+    
     
     if(luaL_dofile(lstate, argv[1])){
       std::cerr << "Error: " << lua_tostring(lstate, -1) << std::endl;

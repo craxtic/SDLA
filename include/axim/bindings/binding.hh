@@ -13,10 +13,17 @@
 
 #pragma once
 
+#include <axim/config.h>
 #include <axim/core/cloud.h>
 
-namespace axm {
+namespace axm::lua {
  
-  extern Cloud* luacloud;
+extern Cloud* cloud;
+
+template<typename T, typename...Args>
+inline T* construct(Args...args){
+  return cloud->construct<T>(std::forward<Args>(args)...);
+}
+
 }
   

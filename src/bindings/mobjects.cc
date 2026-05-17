@@ -16,5 +16,5 @@
 #include <axim/bindings/mobjects.hh>
 
 Mobject* axm_Rect(vec2f a, vec2f b){
-  return luacloud->construct<Rect>(a, b);
+  return lua::construct<Rect>(a, b);
 }

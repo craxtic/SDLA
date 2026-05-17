@@ -12,7 +12,7 @@
  */
 
 #include <axim/mobjects/rect.h>
-#include "axim/mobjects/cloud.h"
+#include <axim/mobjects/mobcloud.h>
 
 
 namespace axm {
@@ -37,8 +37,8 @@ Rect::Rect(vec2f p1, vec2f p2, Color fill_color) : VMobject(fill_color) {
     }
 
     _Rect->pocount = this->get_pocount();
-    _Rect->poindex = cloud->new_poindex();
-    _Rect->paindex = cloud->push_paint(this->get_paint());
+    _Rect->poindex = mobcloud::new_poindex();
+    _Rect->paindex = mobcloud::push_paint(this->get_paint());
 
     for(int i = 0; i < _Rect->get_pocount(); i++)
       _Rect->push_point((*this)[i]);

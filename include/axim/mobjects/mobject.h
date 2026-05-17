@@ -22,7 +22,7 @@
 #include <axim/config.h>
 #include <axim/core/types/color.h>
 #include <axim/core/types/vector3.h>
-#include <axim/mobjects/cloud.h>
+#include <axim/mobjects/mobcloud.h>
 
 namespace axm {
 
@@ -48,12 +48,12 @@ public:
 
   /// return the point at a givel local index
   [[nodiscard]] inline constexpr vec3f &operator[](u32 index) const {
-    return cloud->points[poindex + index];
+    return mobcloud::get_point_at(poindex + index);
   }
 
   /// return the reference to the corresponding paint object of this mobject
   [[nodiscard]] inline constexpr const SkPaint &get_paint() const {
-    return cloud->paints[paindex];
+    return mobcloud::get_paint_at(paindex);
   }
 
   /// return the global starting index to the points of this mobject
@@ -78,7 +78,7 @@ protected:
 
   /// push a new point to the cloud
   /// this should be called in constructor of any Mobject
-  inline constexpr void push_point(vec3f point) { cloud->push_point(point); }
+  inline constexpr void push_point(vec3f point) { mobcloud::push_point(point); }
 
   /// set the point count of this mobject
   inline constexpr void set_pocount(u16 pocount) {

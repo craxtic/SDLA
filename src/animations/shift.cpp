@@ -11,7 +11,6 @@
  * file, You can obtain one at https://mozilla.org.
  */
 
-#include "log.hpp"
 #include <axim/animations/shift.h>
 #include <cmath>
 

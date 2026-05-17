@@ -11,11 +11,11 @@
  * file, You can obtain one at https://mozilla.org.
  */
 
-#include <axim/mobjects/cloud.h>
+#include <axim/mobjects/mobcloud.h>
 #include <axim/core/types/color.h>
 #include <include/core/SkColor.h>
 
-namespace axm {
+namespace axm::mobcloud {
 
 MobjectCloud::MobjectCloud(size_t init_mobcount, size_t std_pocount) {
 

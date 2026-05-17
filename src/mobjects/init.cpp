@@ -11,17 +11,17 @@
  * file, You can obtain one at https://mozilla.org.
  */
 
- #include <axim/config.h>
-#include <axim/mobjects/cloud.h>
+#include <axim/config.h>
+#include <axim/mobjects/mobcloud.h>
 
 
-namespace axm {
+namespace axm::mobcloud {
 
 /// these objects are created to last the entire life time of the program
 /// no free is required, the memory leak is harmless
 /// a clean up function may be implemented later
 
-MobjectCloud *const cloud =
+MobjectCloud *const mobject_cloud =
     new MobjectCloud(MOBJECT_COUNT_PER_SCENE_PROBABLY, 10);
 // PreviewPresenter *const preview_presenter = new PreviewPresenter();
 
