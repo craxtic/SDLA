@@ -13,11 +13,12 @@
 
 #pragma once
 
-#include <luajit-2.1/lua.hpp>
+#include "app.hh"
+#include "axim/config.h"
+#include <axim/mobjects/rect.h>
 
-#include <axim/scene/scene.h>
+using namespace axm;
 
-extern axm::Scene* glob_scene;
-
-void init_luajit_ffi_module(lua_State* lstate);
-
+extern "C"{
+AXIM_APP_API Mobject* axm_Rect(vec2f a, vec2f b);
+}

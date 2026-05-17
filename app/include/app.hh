@@ -11,10 +11,18 @@
  * file, You can obtain one at https://mozilla.org.
  */
 
-#include "axim/mobjects/rect.h"
-#include <axim/bindings/binding.hh>
-#include <axim/bindings/mobjects.hh>
+#pragma once
 
-Mobject* axm_Rect(vec2f a, vec2f b){
-  return lua::construct<Rect>(a, b);
-}
+#include <lua.hpp>
+
+#include <axim/scene/scene.h>
+
+
+#ifndef AXIM_APP_API
+#define AXIM_APP_API AXIM_API_EXPORT
+#endif
+
+extern axm::Scene* glob_scene;
+
+void init_luajit_ffi_module(lua_State* lstate);
+

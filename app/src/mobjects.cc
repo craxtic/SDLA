@@ -11,5 +11,10 @@
  * file, You can obtain one at https://mozilla.org.
  */
 
-#include <axim/bindings/vectors.hh>
+#include "axim/mobjects/rect.h"
+#include <binding.hh>
+#include <mobjects.hh>
 
+Mobject* axm_Rect(vec2f a, vec2f b){
+  return lua::construct<Rect>(a, b);
+}

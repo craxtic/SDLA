@@ -68,16 +68,5 @@
 
 
 
-#if defined (AXIM_LUA_EXPORTS)
-
-#define AXIM_LUA_API AXIM_API_EXPORT
-
-#else
-
-#define AXIM_LUA_API AXIM_API_IMPORT
-
-#endif
-
-
 
 #define MOBJECT_COUNT_PER_SCENE_PROBABLY 100

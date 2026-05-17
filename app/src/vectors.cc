@@ -11,13 +11,5 @@
  * file, You can obtain one at https://mozilla.org.
  */
 
-#pragma once
+#include <vectors.hh>
 
-#include "axim/config.h"
-#include <axim/mobjects/rect.h>
-
-using namespace axm;
-
-extern "C"{
-  AXIM_LUA_API Mobject* axm_Rect(vec2f a, vec2f b);
-}

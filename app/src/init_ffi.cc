@@ -11,30 +11,25 @@
  * file, You can obtain one at https://mozilla.org.
  */
 
-#include "app.hpp"
-#include "axim/config.h"
+#include "app.hh"
+#include <axim/config.h>
 #include <axim/scene/scene.h>
 
 #include <cstdlib>
 #include <filesystem>
 #include <format>
 #include <iostream>
-#include <luajit-2.1/lauxlib.h>
 
 namespace fs = std::filesystem;
 
 #ifndef AXIM_LUA_DIR
 
   #if defined(_WIN32)
-    #define AXIM_LUA_DIR "C:\\ProgramData\\axim\\lua" 
+    #define AXIM_LUA_DIR "C:/ProgramData/axim/lua" 
   #else
     #define AXIM_LUA_DIR "/usr/share/axim/lua"
   #endif
 
-#endif
-
-#ifndef AXIM_APP_API
-#define AXIM_APP_API AXIM_API_EXPORT
 #endif
 
 
@@ -71,6 +66,6 @@ static fs::path resolve_lua_dir(){
   if(env_path != NULL){
     return fs::path(env_path);
   }
-
+  std::cout << AXIM_LUA_DIR << std::endl;
   return fs::path(AXIM_LUA_DIR);
 }
