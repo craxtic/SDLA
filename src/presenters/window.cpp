@@ -33,7 +33,6 @@
 #include <axim/core/types/color.h>
 #include <axim/utils/errors.h>
 
-#include <SFML/Config.hpp>
 
 
 // #include <iostream>
@@ -51,7 +50,7 @@ PreviewPresenter::PreviewPresenter(){
 
   window = SDL_CreateWindow(
     "axim Preview", 
-    0, 0,
+    800, 600,
     SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE
   );
   check_null_unlikely(window, "CreateWindow");

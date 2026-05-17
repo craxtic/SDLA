@@ -4,16 +4,21 @@ set_languages("c++23")
 add_requires("skia", {system = true}) -- require to manually install
 add_requires("libsdl3")
 add_requires("luajit")
--- add_requires("sol2")
-add_requires("ffmpeg", {configs = {binaryonly = true}})
 add_requires("catch2") 
-
 
 
 --- for development
 add_includedirs("$(projectdir)/include") ---
+add_includedirs("$(projectdir)/app/include")
 set_warnings("allextra")
 set_policy("build.warning", true)
+
+local function get_lua_ffi_dir() 
+  local lua_path = path.join(os.projectdir(), "lua")
+  if is_host("windows") then
+    return lua_path:gsub("\\", "\\\\")
+  end
+end
 
 
 --- @axim-core
@@ -53,41 +58,20 @@ target("axim-presenters") do
 end
 
 
-
---- @axim-lua
---- axim bindings to lua script 
-target("axim-lua") do
-  set_kind("shared")
-  set_symbols("hidden")
-  add_defines("AXIM_LUA_EXPORTS")
-  add_files("src/bindings/**.cc")
-
-  add_deps("axim-core", "axim-engine", "axim-presenters")
-  add_packages("skia")
-end
-
-
-
---- @header-files
---- for installation
--- target("axim-headers") do 
---   set_kind("headeronly")
---   add_headerfiles("include/(**.h)") 
--- end
-
-
 --- @axim-app
 --- the application command-line interface
 target("axim") do 
   set_kind("binary")
-  add_files("app/**.cpp")
-  add_deps("axim-engine")
-  add_deps("axim-presenters")
-  add_deps("axim-lua")
-  add_ldflags("-rdynamic", {force = true})
+  add_files("app/src/**.cc")
+  add_deps("axim-core", "axim-engine", "axim-presenters")
+
+  if is_plat("linux", "bsd") then
+    add_ldflags("-rdynamic", {force = true})
+  end
+
   add_packages("skia", "libsdl3", "luajit")
 
-  add_defines('AXIM_LUA_DIR="$(projectdir)/lua"')
+  add_defines("AXIM_LUA_DIR=" ..'"'.. get_lua_ffi_dir() .. '"')
 end
 
 
