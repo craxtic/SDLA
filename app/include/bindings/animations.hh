@@ -11,10 +11,14 @@
  * file, You can obtain one at https://mozilla.org.
  */
 
-#include "axim/mobjects/rect.h"
-#include <binding.hh>
-#include <mobjects.hh>
+#include <axim/animations/animation.h>
+#include <axim/config.h>
+#include <axim/core/types/vector2.h>
 
-Mobject* axm_Rect(vec2f a, vec2f b){
-  return lua::construct<Rect>(a, b);
+using namespace axm;
+
+extern "C" {
+
+AXIM_API_EXPORT Animation* axm_Shift(Mobject *target, vec2f delta, float run_time);
+
 }

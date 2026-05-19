@@ -11,5 +11,12 @@
  * file, You can obtain one at https://mozilla.org.
  */
 
-#include <vectors.hh>
+#include <axim/mobjects/rect.h>
 
+#include "binding.hh"
+#include "bindings/mobjects.hh"
+
+
+axm::Mobject* axm_Rect(vec2f a, vec2f b){
+  return storage::construct<axm::Rect>(a, b);
+}

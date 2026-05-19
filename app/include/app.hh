@@ -13,16 +13,38 @@
 
 #pragma once
 
+#include "axim/core/types/vector2.h"
 #include <lua.hpp>
 
 #include <axim/scene/scene.h>
 
 
-#ifndef AXIM_APP_API
-#define AXIM_APP_API AXIM_API_EXPORT
-#endif
+extern axm::Scene* scene;
 
-extern axm::Scene* glob_scene;
+enum class Mode {
+  Preview, 
+  Export,
+};
+
+struct Settings {
+  Mode active_mode;
+  axm::vec2i unitsize;
+  axm::vec2i framesize;
+  axm::Color background_color;
+  struct {
+    int framerate;
+    axm::vec2i dimensions;  
+    bool reload_on_save;
+  } preview;
+  struct {
+    int framerate;
+    axm::vec2i resolution;
+  } output;
+};
+
+
+
+int run_app(const char* script_filepath, Settings &setting);
 
 void init_luajit_ffi_module(lua_State* lstate);
 

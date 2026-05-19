@@ -1,8 +1,14 @@
 
-local r = Rect(vec2f(100, 100), vec2f(200, 200))
-local r2 = Rect(vec2f(400, 400), vec2f(500, 600))
+function R(x, y, l)
+  local r = (l/2)
+  return Rect(vec2f(x-r, y-r), vec2f(x+r, y+r))
+end
 
-add(r)
-add(r2)
-add(Rect(vec2f(300, 200), vec2f(550, 300)))
+local r1 = R(50, 50, 50)
+
+
+play(Shift(r1, vec2f(200, 0), 1))
+play(Shift(r1, vec2f(0, 200), 1))
+play(Shift(r1, vec2f(200, 200), 1))
+play(Shift(r1, vec2f(-300, -300), 1))
 

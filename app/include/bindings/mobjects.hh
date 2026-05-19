@@ -13,12 +13,13 @@
 
 #pragma once
 
-#include "app.hh"
-#include "axim/config.h"
+#include <axim/config.h>
 #include <axim/mobjects/rect.h>
 
 using namespace axm;
 
 extern "C"{
-AXIM_APP_API Mobject* axm_Rect(vec2f a, vec2f b);
+
+AXIM_API_EXPORT axm::Mobject* axm_Rect(vec2f a, vec2f b);
+
 }

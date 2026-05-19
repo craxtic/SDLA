@@ -11,15 +11,15 @@
  * file, You can obtain one at https://mozilla.org.
  */
 
-#pragma once
-
 #include <axim/config.h>
-#include <axim/core/types/vector2.h>
-#include <axim/core/types/vector3.h>
+#include <axim/mobjects/mobject.h>
+#include <axim/scene/scene.h>
+
+
+extern axm::Scene* scene;
 
 extern "C" {
 
-// AXIM_LUA_API 
-
+// AXIM_API_EXPORT void axm_scene_add(axm::Mobject* mobject);
 
 }

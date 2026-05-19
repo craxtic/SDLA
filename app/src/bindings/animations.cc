@@ -11,25 +11,10 @@
  * file, You can obtain one at https://mozilla.org.
  */
 
-#pragma once
+#include "bindings/animations.hh"
+#include <axim/animations/shift.h>
+#include "binding.hh"
 
-#include <axim/config.h>
-#include <axim/core/cloud.h>
-#include <axim/mobjects/mobject.h>
-
-#include "app.hh"
-
-
-namespace storage {
-
-inline axm::Cloud cloud{8192};
-
-
-template<typename T, typename...Args>
-inline T* construct(Args&&...args){
-  return cloud.construct<T>(std::forward<Args>(args)...);
+Animation* axm_Shift(Mobject *target, vec2f delta, float run_time){
+  return storage::construct<Shift>(*target, delta, run_time);
 }
-
-};
-  
-

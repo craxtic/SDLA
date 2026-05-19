@@ -13,10 +13,16 @@
 
 local ffi = require("ffi")
 
-ffi.cdef[[
+ffi.cdef [[
+  
+  typedef struct {
+    void *vptr;
+    float z_index;
+  } Mobject;
+
   Mobject* axm_Rect(vec2f a, vec2f b);
+
+
 ]]
 
-return function (a, b)
-  return ffi.C.axm_Rect(a, b)
-end
+_G.Rect = ffi.C.axm_Rect

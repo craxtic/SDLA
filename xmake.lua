@@ -17,6 +17,8 @@ local function get_lua_ffi_dir()
   local lua_path = path.join(os.projectdir(), "lua")
   if is_host("windows") then
     return lua_path:gsub("\\", "\\\\")
+  else
+    return lua_path
   end
 end
 

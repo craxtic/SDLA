@@ -11,11 +11,20 @@
  * file, You can obtain one at https://mozilla.org.
  */
 
-#include <axim/core/cloud.h>
+#include "bindings/scene.hh"
+#include "axim/animations/animation.h"
+#include "axim/config.h"
 
-namespace axm::lua {
 
-  Cloud* cloud = new Cloud(8192 );
+extern "C" {
 
+  
+AXIM_API_EXPORT void axm_scene_add(axm::Mobject* mobject){
+  scene->add(*mobject);
 }
   
+AXIM_API_EXPORT void axm_scene_play(axm::Animation* animation){
+  scene->play(*animation);
+}
+
+}

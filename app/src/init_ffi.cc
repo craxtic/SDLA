@@ -37,10 +37,6 @@ namespace fs = std::filesystem;
 static fs::path resolve_lua_dir();
 
 
-extern "C" AXIM_APP_API void axm_scene_add(axm::Mobject* mobject){
-  glob_scene->add(*mobject);
-}
-
 
 void init_luajit_ffi_module(lua_State *lstate){
 

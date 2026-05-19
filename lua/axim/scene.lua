@@ -12,18 +12,10 @@
 
 
 local ffi = require("ffi")
-
 ffi.cdef [[
-  
-  typedef struct {
-    void *vptr;
-    float z_index;
-  } Mobject;
-
+  void axm_scene_add(Mobject* mobject);
+  void axm_scene_play(Animation* animation);
 ]]
 
-local metatable = {
-  
-}
-
--- ffi.metatype("Mobject", metatable)
+_G.add = ffi.C.axm_scene_add
+_G.play = ffi.C.axm_scene_play
